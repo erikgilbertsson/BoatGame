@@ -1,10 +1,9 @@
-package com.mygdx.boatgame;
+package se.lth.MAMN01.team4.boatgame;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.boatgame.BoatGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

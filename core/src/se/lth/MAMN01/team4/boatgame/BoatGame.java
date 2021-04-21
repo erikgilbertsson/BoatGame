@@ -1,4 +1,4 @@
-package com.mygdx.boatgame;
+package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
