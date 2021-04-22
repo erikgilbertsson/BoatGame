@@ -3,34 +3,44 @@ package se.lth.MAMN01.team4.boatgame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
 
     private BoatGame parent;
     private Stage stage;
+    private int screenWidth;
+    private int screenHeight;
 
     public MainMenuScreen(BoatGame parent) {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
     }
 
 
     @Override
     public void show() {
-        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton settings = new TextButton("Settings", skin);
-        TextButton help = new TextButton("Help", skin);
-        newGame.setSize(500, 150);
-        newGame.getLabel().setFontScale(2f);
-        newGame.setPosition(Gdx.graphics.getWidth()/2-250, Gdx.graphics.getHeight()/2-75);
+        MenuButton newGame = new MenuButton("newgame_up.png", "newgame_down.png");
+        MenuButton settings = new MenuButton("settings_up.png", "settings_down.png");
+        MenuButton help = new MenuButton("help_up.png", "help_down.png");
+        newGame.setPosition(screenWidth/2-300, screenHeight/2+300);
+        help.setPosition(screenWidth/2-300, screenHeight/2+100);
+        settings.setPosition(screenWidth/2-300, screenHeight/2-100);
+
         stage.addActor(newGame);
+        stage.addActor(help);
+        stage.addActor(settings);
     }
 
     @Override

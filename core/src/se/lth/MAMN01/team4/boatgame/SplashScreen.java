@@ -12,13 +12,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class SplashScreen implements Screen {
 
     private BoatGame parent;
+    private static final int SPLASH_TIME = 100;
+    private AssetManager assetManager;
+    private long startTime;
 
-    AssetManager assetManager;
-    long startTime;
-
-    BitmapFont font;
-    SpriteBatch batch;
-    Texture img;
+    private BitmapFont font;
+    private SpriteBatch batch;
+    private Texture img;
 
     public SplashScreen(BoatGame parent) {
         this.parent = parent;
@@ -35,7 +35,7 @@ public class SplashScreen implements Screen {
         batch.draw(img, Gdx.graphics.getWidth()/2 -img.getWidth()/2, Gdx.graphics.getHeight()/2 -img.getHeight()/2);
         batch.end();
 
-        if(assetManager.update() && TimeUtils.timeSinceMillis(startTime) > 1500){
+        if(assetManager.update() && TimeUtils.timeSinceMillis(startTime) > SPLASH_TIME){
             parent.changeScreen(parent.MAIN_MENU);
         }
     }
