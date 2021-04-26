@@ -27,8 +27,7 @@ public class SplashScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth()/2 -img.getWidth()/2, Gdx.graphics.getHeight()/2 -img.getHeight()/2);
         batch.end();
@@ -41,7 +40,8 @@ public class SplashScreen implements Screen {
 
     @Override
     public void show() {
-
+        batch = new SpriteBatch();
+        img = new Texture("badlogic.jpg");
     }
 
     @Override
@@ -66,6 +66,8 @@ public class SplashScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        img.dispose();
+        assetManager.dispose();
     }
 }

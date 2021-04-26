@@ -25,6 +25,8 @@ public class BoatGame extends Game {
 	@Override
 	public void dispose () {
 		splashScreen.dispose();
+		mainMenuScreen.dispose();
+		gameScreen.dispose();
 	}
 
 	public void changeScreen(int screen) {

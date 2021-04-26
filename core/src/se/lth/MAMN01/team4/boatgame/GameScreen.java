@@ -3,7 +3,6 @@ package se.lth.MAMN01.team4.boatgame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,7 +13,7 @@ public class GameScreen implements Screen {
     private float Y;
     private float Z;
     private SpriteBatch batch;
-    BitmapFont font = new BitmapFont();
+    BitmapFont font;
 
     public GameScreen(BoatGame parent){
         this.parent=parent;
@@ -22,14 +21,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+        batch = new SpriteBatch();
+        font = new BitmapFont();
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch = new SpriteBatch();
+
         batch.begin();
         X = Gdx.input.getAccelerometerX();
         Y = Gdx.input.getAccelerometerY();
@@ -62,6 +62,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        font.dispose();
     }
 }
