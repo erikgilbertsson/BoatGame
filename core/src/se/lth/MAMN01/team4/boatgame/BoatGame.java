@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 public class BoatGame extends Game {
 
 	public final static int MAIN_MENU = 1;
+	public final static int GAME = 2;
 
 	SplashScreen splashScreen;
 	MainMenuScreen mainMenuScreen;
@@ -31,6 +32,9 @@ public class BoatGame extends Game {
 				if(mainMenuScreen == null) mainMenuScreen = new MainMenuScreen(this);
 				setScreen(mainMenuScreen);
 				break;
+			case GAME:
+				if()
+
 		}
 	}
 }
