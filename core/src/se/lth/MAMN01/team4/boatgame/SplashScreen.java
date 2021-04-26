@@ -16,7 +16,6 @@ public class SplashScreen implements Screen {
     private AssetManager assetManager;
     private long startTime;
 
-    private BitmapFont font;
     private SpriteBatch batch;
     private Texture img;
 
@@ -24,7 +23,6 @@ public class SplashScreen implements Screen {
         this.parent = parent;
         startTime = TimeUtils.millis();
         assetManager = new AssetManager();
-        font = new BitmapFont();
     }
 
     @Override

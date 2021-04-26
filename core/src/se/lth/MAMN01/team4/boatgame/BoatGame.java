@@ -4,11 +4,12 @@ import com.badlogic.gdx.Game;
 
 public class BoatGame extends Game {
 
-	public final static int MAIN_MENU = 1;
-	public final static int GAME = 2;
+	public final static int MAIN_MENU = 0;
+	public final static int GAME = 1;
 
 	SplashScreen splashScreen;
 	MainMenuScreen mainMenuScreen;
+	GameScreen gameScreen;
 
 	@Override
 	public void create () {
@@ -33,7 +34,9 @@ public class BoatGame extends Game {
 				setScreen(mainMenuScreen);
 				break;
 			case GAME:
-				if()
+				if(gameScreen == null) gameScreen = new GameScreen(this);
+				setScreen(gameScreen);
+				break;
 
 		}
 	}

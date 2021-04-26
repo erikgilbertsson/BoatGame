@@ -1,6 +1,10 @@
 package se.lth.MAMN01.team4.boatgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen implements Screen {
 
@@ -8,6 +12,8 @@ public class GameScreen implements Screen {
     private float getX;
     private float getY;
     private float getZ;
+    private SpriteBatch batch;
+    private Texture img;
 
     public GameScreen(BoatGame parent){
         this.parent=parent;
@@ -20,7 +26,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
+        batch = new SpriteBatch();
+        img = new Texture("badlogic.jpg");
+        batch.begin();
+        batch.draw(img, Gdx.graphics.getWidth()/2 -img.getWidth()/2, Gdx.graphics.getHeight()/2 -img.getHeight()/2);
+        batch.end();
     }
 
     @Override
