@@ -6,15 +6,18 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Navigation implements Screen {
 
     private BoatGame parent;
-    private Texture boat;
+    private TextureRegion boat;
     private SpriteBatch batch;
     private int screenWidth;
     private int screenHeight;
+    private int boatWidth;
+    private int boatHeight;
     private float X;
     private float Y;
     private float Z;
@@ -22,8 +25,8 @@ public class Navigation implements Screen {
 
     ShapeRenderer shapeRenderer;
 
-    float circleX = Gdx.graphics.getWidth() /2;
-    float circleY = Gdx.graphics.getHeight() /2;
+    float circleX;
+    float circleY;
 
     float xSpeed = 10;
     float ySpeed = 10;
@@ -33,7 +36,6 @@ public class Navigation implements Screen {
         this.parent = parent;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-        boat = new Texture("ball.png");
         //cam.setToOrtho(true);
 
         peripheralAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
@@ -44,39 +46,41 @@ public class Navigation implements Screen {
     @Override
     public void show() {
         //this.shapeRenderer = new ShapeRenderer();
-        this.screenWidth = Gdx.graphics.getWidth();
-        this.screenHeight = Gdx.graphics.getHeight();
-        this.batch = new SpriteBatch();
-        boat = new Texture("first_boat.png");
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
+        batch = new SpriteBatch();
+        boat = new TextureRegion(new Texture("first_boat.png"));
+        boatHeight = this.boat.getTexture().getHeight();
+        boatWidth = this.boat.getTexture().getWidth();
+        circleY = screenHeight/2;
+        circleX =  screenWidth/2;
     }
 
     @Override
     public void render(float delta) {
 
-        xSpeed = X;
-        ySpeed = Y ;
+        xSpeed = Gdx.input.getAccelerometerX();
+        ySpeed = Gdx.input.getAccelerometerY();
 
-        if (circleX + xSpeed < 0 || circleX + xSpeed > screenWidth) {
+        if (circleX + xSpeed < 0 && xSpeed > 0) {
+            xSpeed = 0;
+        } else if (circleX + xSpeed > screenWidth - boatWidth && xSpeed < 0) {
             xSpeed = 0;
         }
 
-        if (circleY + ySpeed < 0 || circleY + ySpeed > screenHeight) {
+        if (circleY + ySpeed < 0 && ySpeed > 0) {
+            ySpeed = 0;
+        } else if (circleY + ySpeed > screenHeight- - boatHeight && ySpeed < 0) {
             ySpeed = 0;
         }
-
-        circleX += xSpeed;
-        circleY += ySpeed;
+        circleX -= xSpeed*2;
+        circleY -= ySpeed*2;
 
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-
-        X = -Gdx.input.getAccelerometerX();
-        Y = -Gdx.input.getAccelerometerY();
-        Z = Gdx.input.getAccelerometerZ();
-
-        batch.draw(boat, circleX, circleY);
+        batch.draw(boat, circleX, circleY, boatWidth/2, boatWidth/2, boat.getTexture().getWidth(), boat.getTexture().getHeight(), 0.8f, 2.5f, xSpeed*2, true);
         batch.end();
 
         //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
