@@ -46,7 +46,12 @@ public class MainMenuScreen implements Screen {
                 parent.changeScreen(1);
             }
         });
-
+        settings.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(2);
+            }
+        });
         stage.addActor(newGame);
         stage.addActor(help);
         stage.addActor(settings);

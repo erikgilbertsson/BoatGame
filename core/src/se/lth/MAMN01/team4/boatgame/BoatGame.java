@@ -6,10 +6,14 @@ public class BoatGame extends Game {
 
 	public final static int MAIN_MENU = 0;
 	public final static int GAME = 1;
+	public final  static  int NEVIGATE = 2;
 
 	SplashScreen splashScreen;
 	MainMenuScreen mainMenuScreen;
 	GameScreen gameScreen;
+
+	Navigation nevigat;
+
 
 	@Override
 	public void create () {
@@ -37,6 +41,10 @@ public class BoatGame extends Game {
 				if(gameScreen == null) gameScreen = new GameScreen(this);
 				setScreen(gameScreen);
 				break;
+			case NEVIGATE:
+				if (nevigat==null) nevigat = new Navigation(this);
+				setScreen(nevigat);
+
 
 		}
 	}
