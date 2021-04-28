@@ -55,4 +55,9 @@ public class Boat implements GameObject {
         batch.draw(boat, xPos, 250, boatWidth/2, boatWidth/2, boat.getTexture().getWidth(), boat.getTexture().getHeight(), 0.8f, 2.5f, xSpeed*2, true);
         batch.end();
     }
+
+    public void dispose() {
+        batch.dispose();
+        boat.getTexture().dispose();
+    }
 }

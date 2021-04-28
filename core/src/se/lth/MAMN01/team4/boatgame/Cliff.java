@@ -46,4 +46,8 @@ public class Cliff implements GameObject {
         shapeRenderer.end();
         move();
     }
+
+    public void dispose() {
+        shapeRenderer.dispose();
+    }
 }
