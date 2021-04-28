@@ -22,8 +22,8 @@ public class Navigation implements Screen {
 
     ShapeRenderer shapeRenderer;
 
-    float circleX = 1;
-    float circleY = 1;
+    float circleX = Gdx.graphics.getWidth() /2;
+    float circleY = Gdx.graphics.getHeight() /2;
 
     float xSpeed = 10;
     float ySpeed = 10;
@@ -53,6 +53,8 @@ public class Navigation implements Screen {
     @Override
     public void render(float delta) {
 
+        xSpeed = X;
+        ySpeed = Y ;
 
         circleX += xSpeed;
         circleY += ySpeed;
@@ -69,6 +71,11 @@ public class Navigation implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+
+        X = -Gdx.input.getAccelerometerX();
+        Y = -Gdx.input.getAccelerometerY();
+        Z = Gdx.input.getAccelerometerZ();
+
         batch.draw(boat, circleX, circleY);
         batch.end();
 
