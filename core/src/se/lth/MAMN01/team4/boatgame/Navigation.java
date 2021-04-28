@@ -56,16 +56,16 @@ public class Navigation implements Screen {
         xSpeed = X;
         ySpeed = Y ;
 
+        if (circleX + xSpeed < 0 || circleX + xSpeed > screenWidth) {
+            xSpeed = 0;
+        }
+
+        if (circleY + ySpeed < 0 || circleY + ySpeed > screenHeight) {
+            ySpeed = 0;
+        }
+
         circleX += xSpeed;
         circleY += ySpeed;
-
-        if (circleX < 0 || circleX > screenWidth) {
-            xSpeed = -xSpeed;
-        }
-
-        if (circleY < 0 || circleY > screenHeight) {
-            ySpeed = -ySpeed;
-        }
 
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
