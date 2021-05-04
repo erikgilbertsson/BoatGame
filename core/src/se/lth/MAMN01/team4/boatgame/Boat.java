@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Boat implements GameObject {
 
-    private static final float SENSITIVITY = 4;
+    private static float SENSITIVITY = 4;
 
     private TextureRegion boat;
     private SpriteBatch batch;
@@ -29,17 +29,11 @@ public class Boat implements GameObject {
         xSpeed = 0;
         hitBox = new Rectangle(xPos, 250, boatWidth, boatHeight);
     }
-    public void setDifficulty(String mode){
-        if(mode == "EASY"){
-            //do something.. easy
+
+    public void increaseDifficulty(){
+            SENSITIVITY++;
         }
-        if(mode == "MEDIUM") {
-            //do something.. medium
-        }
-        if(mode == "HARD"){
-            //do something.. hard
-        }
-    }
+
 
     private void move() {
         xSpeed = Util.lowPass(Gdx.input.getAccelerometerX(), xSpeed);
