@@ -1,6 +1,9 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
@@ -13,14 +16,23 @@ public class Cliff implements GameObject {
     private float xPos, yPos, radius;
     private float screenWidth, screenHeight;
     private Random r;
+    private TextureRegion rock;
+    private TextureRegion rock2;
+    private SpriteBatch batch;
+    private int rockWidth, rockHeight;
 
     private ShapeRenderer shapeRenderer;
 
     public Cliff(float screenWidth, float screenHeight) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
+        batch = new SpriteBatch();
+        rock = new TextureRegion(new Texture("rock_2.png"));
         r = new Random();
         resetPosition();
+        rockHeight = this.rock.getTexture().getHeight();
+        rockWidth = this.rock.getTexture().getWidth();
+
         this.shapeRenderer = new ShapeRenderer();
     }
 
@@ -40,10 +52,13 @@ public class Cliff implements GameObject {
     }
 
     public void draw() {
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.circle(xPos, yPos, radius);
-        shapeRenderer.end();
+        batch.begin();
+        //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+       // shapeRenderer.setColor(Color.DARK_GRAY);
+        batch.draw(rock,xPos,yPos,rockWidth/2,rockWidth/2,rock.getTexture().getWidth(),rock.getTexture().getHeight(),0.8f,2.5f,xPos,true);
+       // shapeRenderer.circle(xPos, yPos, radius);
+       // shapeRenderer.end();
+        batch.end();
         move();
     }
 
