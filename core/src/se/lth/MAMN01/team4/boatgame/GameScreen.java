@@ -14,7 +14,7 @@ public class GameScreen implements Screen {
     private int screenHeight;
     Boat boat;
 
-    Boat playerBoat;
+    private Boat playerBoat;
     private LinkedList<GameObject> gameObjects;
     private LinkedList<Cliff> cliffs;
 
@@ -29,6 +29,8 @@ public class GameScreen implements Screen {
         gameObjects.add(playerBoat);
         cliffs.add(new Cliff(screenWidth, screenHeight));
         gameObjects.addAll(cliffs);
+
+        gameObjects.add(new Cloud(screenWidth,screenHeight));
 
     }
 
