@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
         gameObjects.add(playerBoat);
         cliffs.add(new Cliff(screenWidth, screenHeight));
         gameObjects.addAll(cliffs);
+        gameObjects.add(new Cloud(screenWidth,screenHeight));
     }
 
     @Override
