@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Boat implements GameObject {
 
     private static float SENSITIVITY = 4;
+    private static float DEADZONE = 1/4;
 
     private TextureRegion boat;
     private SpriteBatch batch;
@@ -37,9 +38,14 @@ public class Boat implements GameObject {
 
     private void move() {
         xSpeed = Util.lowPass(Gdx.input.getAccelerometerX(), xSpeed);
+
         if (xPos + xSpeed < 0 && xSpeed > 0) {
             xSpeed = 0;
         } else if (xPos + xSpeed > screenWidth - boatWidth && xSpeed < 0) {
+            xSpeed = 0;
+        }
+
+        if(xSpeed < DEADZONE && xSpeed > -DEADZONE) {
             xSpeed = 0;
         }
 

@@ -14,7 +14,7 @@ public class GameScreen implements Screen {
     private int screenWidth;
     private int screenHeight;
 
-    Boat playerBoat;
+    private Boat playerBoat;
     private LinkedList<GameObject> gameObjects;
     private LinkedList<Cliff> cliffs;
 
