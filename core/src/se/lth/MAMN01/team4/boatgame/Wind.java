@@ -13,6 +13,7 @@ public class Wind implements GameObject{
     private static final float MAX_RADIUS = 150;
     private static final float MIN_RADIUS = 80;
 
+
     private float xPos, yPos, radius;
     private float screenWidth, screenHeight;
     private Random r;
@@ -30,12 +31,13 @@ public class Wind implements GameObject{
         this.boat=boat;
         batch = new SpriteBatch();
 
-        //This image it only an example.....
-        rock = new TextureRegion(new Texture("rock_2.png"));
+        //This image it's only an example.....
+        rock = new TextureRegion(new Texture("wind5.png"));
         r = new Random();
         resetPosition();
         rockHeight = this.rock.getTexture().getHeight();
         rockWidth = this.rock.getTexture().getWidth();
+
 
         this.shapeRenderer = new ShapeRenderer();
     }
@@ -55,25 +57,35 @@ public class Wind implements GameObject{
     }
 
     public void wind(){
-        if (xPos==boat.xPos){
-            boat.xPos -= 40;
+        if (yPos==boat.xPos){
+
+            for (int i=0; i<10;i++){
+                boat.xPos -= 1;
+            }
+            System.out.println( "it's work ");
 
         }
     }
 
+
     @Override
     public void draw() {
 
-        wind();
+
         batch.begin();
-        batch.draw(rock,yPos,xPos);
+        batch.draw(rock,yPos,300);
         batch.end();
         move();
+        wind();
+
+
+
     }
 
     @Override
     public void dispose() {
 
         shapeRenderer.dispose();
+
     }
 }

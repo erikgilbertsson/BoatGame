@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
         gameObjects.addAll(cliffs);
 
         gameObjects.add(new Cloud(screenWidth,screenHeight));
+        gameObjects.add(new Wind(screenWidth,screenHeight,playerBoat));
 
     }
 
