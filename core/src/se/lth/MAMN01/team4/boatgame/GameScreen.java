@@ -14,14 +14,20 @@ public class GameScreen implements Screen {
     private int screenWidth;
     private int screenHeight;
 
-    private LinkedList<GameObject> gameObjects = new LinkedList<>();
+    Boat playerBoat;
+    private LinkedList<GameObject> gameObjects;
+    private LinkedList<Cliff> cliffs;
 
     public GameScreen(BoatGame parent) {
         this.parent = parent;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-        gameObjects.add(new Cliff(screenWidth, screenHeight));
-        gameObjects.add(new Boat(screenWidth, screenHeight));
+        gameObjects = new LinkedList<>();
+        cliffs = new LinkedList<>();
+        playerBoat = new Boat(screenWidth, screenHeight);
+        gameObjects.add(playerBoat);
+        cliffs.add(new Cliff(screenWidth, screenHeight));
+        gameObjects.addAll(cliffs);
     }
 
     @Override
@@ -32,6 +38,10 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.01f, 0.1f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        for(Cliff cliff : cliffs) {
+            playerBoat.detectCollision(cliff.getHitBox());
+        }
 
         for (GameObject obj : gameObjects) {
             obj.draw();
@@ -60,5 +70,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        for (GameObject obj : gameObjects) {
+            obj.dispose();
+        }
     }
 }
