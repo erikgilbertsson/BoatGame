@@ -24,10 +24,10 @@ public class GameScreen implements Screen {
         screenHeight = Gdx.graphics.getHeight();
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
-        playerBoat = new Boat(screenWidth, screenHeight);
         cliffs.add(new Cliff(screenWidth, screenHeight));
-        gameObjects.add(playerBoat);
+        playerBoat = new Boat(screenWidth, screenHeight);
         gameObjects.addAll(cliffs);
+        gameObjects.add(playerBoat);
         gameObjects.add(new Cloud(screenWidth, screenHeight));
     }
 

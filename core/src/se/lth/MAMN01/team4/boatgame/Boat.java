@@ -35,7 +35,7 @@ public class Boat implements GameObject {
         boatWidth = textureRegion.getTexture().getWidth();
         xPos =  screenWidth/2 - boatWidth/2;
         xSpeed = 0;
-        hitBox = new Rectangle(xPos+20, 250, boatWidth-20, boatHeight-70);
+        hitBox = new Rectangle(xPos+40, 250, boatWidth, boatHeight-70);
         collisionTime = 0;
     }
 
@@ -58,7 +58,12 @@ public class Boat implements GameObject {
         }
 
         if (Math.abs(xSpeed) > SPEED_LIMIT) {
-            xSpeed = SPEED_LIMIT;
+            if(xSpeed > 0) {
+                xSpeed = SPEED_LIMIT;
+            } else {
+                xSpeed = -SPEED_LIMIT;
+            }
+
         }
 
         xPos -= xSpeed * SENSITIVITY;
@@ -69,9 +74,9 @@ public class Boat implements GameObject {
             Gdx.input.vibrate(100);
             collisionTime = TimeUtils.millis();
             if((xPos+boatWidth/2) < (r.getX() + r.getWidth()/2)) {
-                xSpeed = 20;
+                xSpeed = 10;
             } else {
-                xSpeed = -20;
+                xSpeed = -10;
             }
         }
     }

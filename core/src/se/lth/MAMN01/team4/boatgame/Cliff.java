@@ -39,8 +39,8 @@ public class Cliff implements GameObject {
         xPos = r.nextFloat() * screenWidth;
         yPos = screenHeight;
         size = MIN_SIZE + r.nextFloat() * (MAX_SIZE-MIN_SIZE);
-        float hitBoxCorrection = 50;
-        hitBox.set(xPos + hitBoxCorrection, yPos + hitBoxCorrection, size - hitBoxCorrection, size - hitBoxCorrection);
+        float hitBoxCorrection = 100;
+        hitBox.set(xPos + hitBoxCorrection, yPos + hitBoxCorrection, size, size);
     }
 
     private void move() {
