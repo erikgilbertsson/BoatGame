@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
+
 public class Cloud implements GameObject{
 
     private Texture cloud;
@@ -13,6 +14,7 @@ public class Cloud implements GameObject{
     private float cloudHeight,cloudWidth;
     private float[] xPositions;
     private float[] yPositions;
+    private boolean cloudsPresent;
 
 
     public Cloud(float screenWidth, float screenHeight){
@@ -25,11 +27,26 @@ public class Cloud implements GameObject{
         cloudWidth = this.cloud.getWidth();
         xPositions = new float[10];
         yPositions = new float[10];
+        cloudsPresent = true;
         XPos();
         YPos();
 
     }
 
+    //called every time the clouds are drawn, records audio
+    private void removeClouds(){
+        if(checkClouds()) {
+            CloudThread cloudThread = new CloudThread();
+            cloudThread.start();
+        }
+    }
+
+    private boolean checkClouds(){
+        return cloudsPresent;
+    }
+
+
+    //makes clouds move:)
     private void moveClouds(){
         for(int i=0; i<10; i++){
             float dice = random.nextFloat();
@@ -43,12 +60,14 @@ public class Cloud implements GameObject{
         }
     }
 
+    //Xpos
     public void XPos(){
         for(int i =0; i<10; i++){
             xPositions[i] =  screenWidth*random.nextFloat();
         }
     }
 
+    //Ypos
     public void YPos(){
         for(int i =0; i<10; i++){
             yPositions[i] = screenHeight/(1+random.nextFloat());
@@ -56,13 +75,14 @@ public class Cloud implements GameObject{
     }
 
     @Override
+    //draws the clouds
     public void draw() {
         batch.begin();
         for(int i=0; i<10; i++){
             batch.draw(cloud, xPositions[i] ,yPositions[i]);
         }
         batch.end();
-        moveClouds();
+        cloudsPresent = true;
     }
 
     @Override
