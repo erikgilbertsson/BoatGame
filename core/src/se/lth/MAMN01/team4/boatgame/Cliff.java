@@ -11,63 +11,63 @@ import java.util.Random;
 
 public class Cliff implements GameObject {
 
-    private static final float MAX_RADIUS = 150;
-    private static final float MIN_RADIUS = 80;
+    private static final float MAX_RADIUS = 500;
+    private static final float MIN_RADIUS = 200;
 
     private float xPos, yPos, radius;
     private float screenWidth, screenHeight;
     private Random r;
     private Rectangle hitBox;
-    //private TextureRegion rock;
-    //private TextureRegion rock2;
-    //private SpriteBatch batch;
-    //private int rockWidth, rockHeight;
+    private Texture rock;
+    private SpriteBatch batch;
 
-    private ShapeRenderer shapeRenderer;
+    //private ShapeRenderer shapeRenderer;
 
     public Cliff(float screenWidth, float screenHeight) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
-        //batch = new SpriteBatch();
-        //rock = new TextureRegion(new Texture("rock_2.png"));
+        batch = new SpriteBatch();
+        rock = new Texture("rock_2.png");
         r = new Random();
         hitBox = new Rectangle();
         resetPosition();
-        //rockHeight = this.rock.getTexture().getHeight();
-        //rockWidth = this.rock.getTexture().getWidth();
-        this.shapeRenderer = new ShapeRenderer();
-    }
-
-    private void move() {
-        if(yPos < -radius) {
-            resetPosition();
-            yPos = screenHeight;
-        } else {
-            yPos -= 10;
-        }
+        //this.shapeRenderer = new ShapeRenderer();
     }
 
     private void resetPosition() {
         xPos = r.nextFloat() * screenWidth;
         yPos = screenHeight;
         radius = MIN_RADIUS + r.nextFloat() * (MAX_RADIUS-MIN_RADIUS);
-        hitBox.set(xPos, yPos, radius, radius);
+        hitBox.set(xPos+30, yPos+30, radius-30, radius-30);
+    }
+
+    private void move() {
+        if(yPos < -200) {
+            resetPosition();
+        } else {
+            yPos -= 10;
+        }
     }
 
     public void draw() {
-        //batch.begin();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        /* shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        //batch.draw(rock,xPos,yPos,rockWidth/2,rockWidth/2,rock.getTexture().getWidth(),rock.getTexture().getHeight(),0.8f,2.5f,xPos,true);
         shapeRenderer.circle(xPos, yPos, radius);
         hitBox.setCenter(xPos, yPos); // ska ändras till setPosition sen för Texture
-        shapeRenderer.end();
-        //batch.end();
+        shapeRenderer.end(); */
+
+        batch.begin();
+        batch.draw(rock, xPos, yPos, radius, radius);
+        batch.end();
+        hitBox.setPosition(xPos, yPos);
         move();
     }
 
     public void dispose() {
-        shapeRenderer.dispose();
+        //shapeRenderer.dispose();
+        batch.dispose();
+        rock.dispose();
     }
 
     public Rectangle getHitBox() {

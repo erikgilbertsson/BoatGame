@@ -3,11 +3,10 @@ package se.lth.MAMN01.team4.boatgame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Cloud implements GameObject{
 
-    private TextureRegion cloud;
+    private Texture cloud;
     private SpriteBatch batch;
     private float screenWidth, screenHeight;
     private Random random;
@@ -20,10 +19,10 @@ public class Cloud implements GameObject{
         this.screenHeight=screenHeight;
         this.screenWidth=screenWidth;
         random = new Random();
-        cloud = new TextureRegion(new Texture("cloud.png"));
+        cloud = new Texture("cloud.png");
         batch = new SpriteBatch();
-        cloudHeight = this.cloud.getTexture().getHeight();
-        cloudWidth = this.cloud.getTexture().getWidth();
+        cloudHeight = this.cloud.getHeight();
+        cloudWidth = this.cloud.getWidth();
         xPositions = new float[10];
         yPositions = new float[10];
         XPos();
@@ -69,5 +68,6 @@ public class Cloud implements GameObject{
     @Override
     public void dispose() {
         batch.dispose();
+        cloud.dispose();
     }
 }
