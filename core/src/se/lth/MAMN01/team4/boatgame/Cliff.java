@@ -11,10 +11,11 @@ import java.util.Random;
 
 public class Cliff implements GameObject {
 
-    private static final float MAX_RADIUS = 500;
-    private static final float MIN_RADIUS = 200;
+    private static final float MAX_SIZE = 500;
+    private static final float MIN_SIZE = 200;
+    private static final float SPEED = 10;
 
-    private float xPos, yPos, radius;
+    private float xPos, yPos, size;
     private float screenWidth, screenHeight;
     private Random r;
     private Rectangle hitBox;
@@ -37,15 +38,16 @@ public class Cliff implements GameObject {
     private void resetPosition() {
         xPos = r.nextFloat() * screenWidth;
         yPos = screenHeight;
-        radius = MIN_RADIUS + r.nextFloat() * (MAX_RADIUS-MIN_RADIUS);
-        hitBox.set(xPos+30, yPos+30, radius-30, radius-30);
+        size = MIN_SIZE + r.nextFloat() * (MAX_SIZE-MIN_SIZE);
+        float hitBoxCorrection = 50;
+        hitBox.set(xPos + hitBoxCorrection, yPos + hitBoxCorrection, size - hitBoxCorrection, size - hitBoxCorrection);
     }
 
     private void move() {
         if(yPos < -200) {
             resetPosition();
         } else {
-            yPos -= 10;
+            yPos -= SPEED;
         }
     }
 
@@ -58,7 +60,7 @@ public class Cliff implements GameObject {
         shapeRenderer.end(); */
 
         batch.begin();
-        batch.draw(rock, xPos, yPos, radius, radius);
+        batch.draw(rock, xPos, yPos, size, size);
         batch.end();
         hitBox.setPosition(xPos, yPos);
         move();

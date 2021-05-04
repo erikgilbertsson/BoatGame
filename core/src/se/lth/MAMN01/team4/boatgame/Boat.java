@@ -9,30 +9,33 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class Boat implements GameObject {
 
+    // SETTINGS
     private static float SENSITIVITY = 4;
+    private static final float SPEED_LIMIT = 10;
     private static final float DEADZONE = 1/4;
     private static final float COLLISION_COOLDOWN = 2000;
 
+    // ATTRIBUTES
     private long collisionTime;
+    private Rectangle hitBox;
 
-    private TextureRegion boat;
+    private TextureRegion textureRegion;
     private SpriteBatch batch;
     private float xPos, xSpeed;
     private float screenWidth, screenHeight;
     private int boatWidth, boatHeight;
-    private Rectangle hitBox;
 
 
     public Boat(float screenWidth, float screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         batch = new SpriteBatch();
-        boat = new TextureRegion(new Texture("first_boat.png"));
-        boatHeight = this.boat.getTexture().getHeight();
-        boatWidth = this.boat.getTexture().getWidth();
+        textureRegion = new TextureRegion(new Texture("first_boat.png"));
+        boatHeight = textureRegion.getTexture().getHeight();
+        boatWidth = textureRegion.getTexture().getWidth();
         xPos =  screenWidth/2 - boatWidth/2;
         xSpeed = 0;
-        hitBox = new Rectangle(xPos, 250, boatWidth, boatHeight);
+        hitBox = new Rectangle(xPos+20, 250, boatWidth-20, boatHeight-70);
         collisionTime = 0;
     }
 
@@ -50,8 +53,12 @@ public class Boat implements GameObject {
             xSpeed = 0;
         }
 
-        if(xSpeed < DEADZONE && xSpeed > -DEADZONE) {
+        if(Math.abs(xSpeed) < DEADZONE) {
             xSpeed = 0;
+        }
+
+        if (Math.abs(xSpeed) > SPEED_LIMIT) {
+            xSpeed = SPEED_LIMIT;
         }
 
         xPos -= xSpeed * SENSITIVITY;
@@ -61,19 +68,26 @@ public class Boat implements GameObject {
         if(TimeUtils.timeSinceMillis(collisionTime) > COLLISION_COOLDOWN && hitBox.overlaps(r)) {
             Gdx.input.vibrate(100);
             collisionTime = TimeUtils.millis();
+            if((xPos+boatWidth/2) < (r.getX() + r.getWidth()/2)) {
+                xSpeed = 20;
+            } else {
+                xSpeed = -20;
+            }
         }
     }
 
     public void draw() {
         move();
         batch.begin();
-        batch.draw(boat, xPos, 250, boatWidth/2, boatWidth/2, boat.getTexture().getWidth(), boat.getTexture().getHeight(), 0.8f, 2.5f, xSpeed*2, true);
+        batch.draw(textureRegion, xPos, 250,
+                boatHeight/2, boatWidth/2, boatWidth, boatHeight,
+                0.8f, 2.5f, xSpeed*2, true);
         batch.end();
         hitBox.setPosition(xPos, 250);
     }
 
     public void dispose() {
         batch.dispose();
-        boat.getTexture().dispose();
+        textureRegion.getTexture().dispose();
     }
 }
