@@ -45,7 +45,6 @@ public class Cloud implements GameObject{
         return cloudsPresent;
     }
 
-
     //makes clouds move:)
     private void moveClouds(){
         for(int i=0; i<10; i++){
@@ -59,14 +58,12 @@ public class Cloud implements GameObject{
                     }
         }
     }
-
     //Xpos
     public void XPos(){
         for(int i =0; i<10; i++){
             xPositions[i] =  screenWidth*random.nextFloat();
         }
     }
-
     //Ypos
     public void YPos(){
         for(int i =0; i<10; i++){
@@ -82,6 +79,7 @@ public class Cloud implements GameObject{
             batch.draw(cloud, xPositions[i] ,yPositions[i]);
         }
         batch.end();
+        moveClouds();
         cloudsPresent = true;
     }
 
