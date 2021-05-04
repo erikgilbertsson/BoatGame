@@ -11,7 +11,7 @@ public class Boat implements GameObject {
 
     private TextureRegion boat;
     private SpriteBatch batch;
-    private float xPos, xSpeed;
+    public float xPos, xSpeed;
     private float screenWidth, screenHeight;
     private int boatWidth, boatHeight;
 

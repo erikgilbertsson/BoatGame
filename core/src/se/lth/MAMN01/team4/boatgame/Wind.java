@@ -1,6 +1,5 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,7 +7,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
 
-public class Cliff implements GameObject {
+public class Wind implements GameObject{
+
 
     private static final float MAX_RADIUS = 150;
     private static final float MIN_RADIUS = 80;
@@ -20,13 +20,17 @@ public class Cliff implements GameObject {
     private TextureRegion rock2;
     private SpriteBatch batch;
     private int rockWidth, rockHeight;
+    Boat boat;
 
     private ShapeRenderer shapeRenderer;
+    public Wind(float screenWidth, float screenHeight, Boat boat ) {
 
-    public Cliff(float screenWidth, float screenHeight) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
+        this.boat=boat;
         batch = new SpriteBatch();
+
+        //This image it only an example.....
         rock = new TextureRegion(new Texture("rock_2.png"));
         r = new Random();
         resetPosition();
@@ -36,6 +40,11 @@ public class Cliff implements GameObject {
         this.shapeRenderer = new ShapeRenderer();
     }
 
+    private void resetPosition() {
+        xPos = r.nextFloat() * screenHeight;
+        yPos = screenWidth;
+        radius = MIN_RADIUS + r.nextFloat() * (MAX_RADIUS-MIN_RADIUS);
+    }
     private void move() {
         if(yPos < -radius) {
             resetPosition();
@@ -45,25 +54,26 @@ public class Cliff implements GameObject {
         }
     }
 
-    private void resetPosition() {
-        xPos = r.nextFloat() * screenWidth;
-        yPos = screenHeight;
-        radius = MIN_RADIUS + r.nextFloat() * (MAX_RADIUS-MIN_RADIUS);
+    public void wind(){
+        if (xPos==boat.xPos){
+            boat.xPos -= 40;
+
+        }
     }
 
+    @Override
     public void draw() {
+
+        wind();
         batch.begin();
-        //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-       // shapeRenderer.setColor(Color.DARK_GRAY);
-        //batch.draw(rock,xPos,yPos,rockWidth/2,rockWidth/2,rock.getTexture().getWidth(),rock.getTexture().getHeight(),0.8f,2.5f,xPos,true);
-        batch.draw(rock,xPos,yPos);
-       // shapeRenderer.circle(xPos, yPos, radius);
-       // shapeRenderer.end();
+        batch.draw(rock,yPos,xPos);
         batch.end();
         move();
     }
 
+    @Override
     public void dispose() {
+
         shapeRenderer.dispose();
     }
 }

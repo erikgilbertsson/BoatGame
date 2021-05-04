@@ -1,6 +1,5 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +12,7 @@ public class GameScreen implements Screen {
 
     private int screenWidth;
     private int screenHeight;
+    Boat boat;
 
     private LinkedList<GameObject> gameObjects = new LinkedList<>();
 
@@ -21,7 +21,8 @@ public class GameScreen implements Screen {
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
         gameObjects.add(new Cliff(screenWidth, screenHeight));
-        gameObjects.add(new Boat(screenWidth, screenHeight));
+        gameObjects.add(boat= new Boat(screenWidth, screenHeight));
+        gameObjects.add(new Wind(screenWidth, screenHeight,boat));
     }
 
     @Override
