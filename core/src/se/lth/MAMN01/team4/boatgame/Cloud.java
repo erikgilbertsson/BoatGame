@@ -3,34 +3,49 @@ package se.lth.MAMN01.team4.boatgame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 
 public class Cloud implements GameObject{
 
-    private TextureRegion cloud;
+    private Texture cloud;
     private SpriteBatch batch;
     private float screenWidth, screenHeight;
     private Random random;
     private float cloudHeight,cloudWidth;
     private float[] xPositions;
     private float[] yPositions;
+    private boolean cloudsPresent;
 
 
     public Cloud(float screenWidth, float screenHeight){
         this.screenHeight=screenHeight;
         this.screenWidth=screenWidth;
         random = new Random();
-        cloud = new TextureRegion(new Texture("cloud.png"));
+        cloud = new Texture("cloud.png");
         batch = new SpriteBatch();
-        cloudHeight = this.cloud.getTexture().getHeight();
-        cloudWidth = this.cloud.getTexture().getWidth();
+        cloudHeight = this.cloud.getHeight();
+        cloudWidth = this.cloud.getWidth();
         xPositions = new float[10];
         yPositions = new float[10];
+        cloudsPresent = true;
         XPos();
         YPos();
 
     }
 
+    //called every time the clouds are drawn, records audio
+    private void removeClouds(){
+        if(checkClouds()) {
+            CloudThread cloudThread = new CloudThread();
+            cloudThread.start();
+        }
+    }
+
+    private boolean checkClouds(){
+        return cloudsPresent;
+    }
+
+    //makes clouds move:)
     private void moveClouds(){
         for(int i=0; i<10; i++){
             float dice = random.nextFloat();
@@ -43,13 +58,13 @@ public class Cloud implements GameObject{
                     }
         }
     }
-
+    //Xpos
     public void XPos(){
         for(int i =0; i<10; i++){
             xPositions[i] =  screenWidth*random.nextFloat();
         }
     }
-
+    //Ypos
     public void YPos(){
         for(int i =0; i<10; i++){
             yPositions[i] = screenHeight/(1+random.nextFloat());
@@ -57,6 +72,7 @@ public class Cloud implements GameObject{
     }
 
     @Override
+    //draws the clouds
     public void draw() {
         batch.begin();
         for(int i=0; i<10; i++){
@@ -64,10 +80,12 @@ public class Cloud implements GameObject{
         }
         batch.end();
         moveClouds();
+        cloudsPresent = true;
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+        cloud.dispose();
     }
 }
