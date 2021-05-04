@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Boat implements GameObject {
 
     private static float SENSITIVITY = 4;
     private static float DEADZONE = 1/4;
+    private static float COLLISION_COOLDOWN = 2000;
+
+    private long collisionTime;
 
     private TextureRegion boat;
     private SpriteBatch batch;
@@ -29,6 +33,7 @@ public class Boat implements GameObject {
         xPos =  screenWidth/2 - boatWidth/2;
         xSpeed = 0;
         hitBox = new Rectangle(xPos, 250, boatWidth, boatHeight);
+        collisionTime = 0;
     }
 
     public void increaseDifficulty(){
@@ -53,8 +58,9 @@ public class Boat implements GameObject {
     }
 
     public void detectCollision(Rectangle r) {
-        if(hitBox.overlaps(r)) {
-            Gdx.input.vibrate(500);
+        if(TimeUtils.timeSinceMillis(collisionTime) > COLLISION_COOLDOWN && hitBox.overlaps(r)) {
+            Gdx.input.vibrate(100);
+            collisionTime = TimeUtils.millis();
         }
     }
 
