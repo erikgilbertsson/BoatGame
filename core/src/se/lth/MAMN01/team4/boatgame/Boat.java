@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Boat implements GameObject {
 
     private static float SENSITIVITY = 4;
-    private static float DEADZONE = 1/4;
-    private static float COLLISION_COOLDOWN = 2000;
+    private static final float DEADZONE = 1/4;
+    private static final float COLLISION_COOLDOWN = 2000;
 
     private long collisionTime;
 
