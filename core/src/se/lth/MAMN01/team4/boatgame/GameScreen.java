@@ -15,6 +15,7 @@ public class GameScreen implements Screen {
     private int screenHeight;
 
     private Boat playerBoat;
+    private Cloud cloudGroup;
     private LinkedList<GameObject> gameObjects;
     private LinkedList<Cliff> cliffs;
     private LinkedList<Cloud> clouds;
@@ -28,9 +29,10 @@ public class GameScreen implements Screen {
         clouds = new LinkedList<>();
         cliffs.add(new Cliff(screenWidth, screenHeight));
         playerBoat = new Boat(screenWidth, screenHeight);
+        cloudGroup = new Cloud(screenWidth,screenHeight);
         gameObjects.addAll(cliffs);
         gameObjects.add(playerBoat);
-        clouds.add(new Cloud(screenWidth, screenHeight));
+        clouds.add(cloudGroup);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class GameScreen implements Screen {
 
         for(Cloud cloud: clouds){
             cloud.draw();
+            cloudGroup.removeClouds();
         }
     }
 

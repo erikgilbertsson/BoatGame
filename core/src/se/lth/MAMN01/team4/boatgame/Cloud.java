@@ -29,13 +29,13 @@ public class Cloud implements GameObject{
         yPositions = new float[10];
         cloudsPresent = true;
         //kan göra en point med två kordinater.. men vafan
-        XPos();
-        YPos();
+        xPos();
+        yPos();
 
     }
 
     //called every time the clouds are drawn, records audio
-    private void removeClouds(){
+    public void removeClouds(){
         if(cloudsPresent) {
             CloudThread cloudThread = new CloudThread();
             cloudThread.start();
@@ -57,13 +57,13 @@ public class Cloud implements GameObject{
         }
     }
     //Xpos
-    public void XPos(){
+    private void xPos(){
         for(int i =0; i<10; i++){
             xPositions[i] =  screenWidth*random.nextFloat();
         }
     }
     //Ypos
-    public void YPos(){
+    private void yPos(){
         for(int i =0; i<10; i++){
             yPositions[i] = screenHeight/(1+random.nextFloat());
         }
