@@ -15,25 +15,24 @@ public class GameScreen implements Screen {
     Boat boat;
 
     private Boat playerBoat;
+    private Cloud cloudGroup;
     private LinkedList<GameObject> gameObjects;
     private LinkedList<Cliff> cliffs;
+    private LinkedList<Cloud> clouds;
 
     public GameScreen(BoatGame parent) {
         this.parent = parent;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
+        clouds = new LinkedList<>();
         cliffs.add(new Cliff(screenWidth, screenHeight));
         playerBoat = new Boat(screenWidth, screenHeight);
+        cloudGroup = new Cloud(screenWidth,screenHeight);
         gameObjects.addAll(cliffs);
-
-        //gameObjects.add(new Wind(screenWidth,screenHeight,playerBoat));
-
         gameObjects.add(playerBoat);
-        gameObjects.add(new Cloud(screenWidth, screenHeight));
-
+        clouds.add(cloudGroup);
     }
 
     @Override
@@ -51,6 +50,11 @@ public class GameScreen implements Screen {
 
         for (GameObject obj : gameObjects) {
             obj.draw();
+        }
+        //tills det kommer en gameDirector så är det såhär de får lösas..
+        for(Cloud cloud: clouds){
+            cloud.draw();
+            cloudGroup.removeClouds();
         }
     }
 
