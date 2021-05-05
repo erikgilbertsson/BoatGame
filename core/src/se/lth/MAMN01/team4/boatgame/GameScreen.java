@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
         for (GameObject obj : gameObjects) {
             obj.draw();
         }
-
+        //tills det kommer en gameDirector så är det såhär de får lösas..
         for(Cloud cloud: clouds){
             cloud.draw();
             cloudGroup.removeClouds();

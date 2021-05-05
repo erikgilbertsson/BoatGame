@@ -1,5 +1,7 @@
 package se.lth.MAMN01.team4.boatgame;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioRecorder;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
@@ -11,6 +13,7 @@ public class Cloud implements GameObject{
     private SpriteBatch batch;
     private float screenWidth, screenHeight;
     private Random random;
+    private int samplingrate;
     private float cloudHeight,cloudWidth;
     private float[] xPositions;
     private float[] yPositions;
@@ -23,11 +26,10 @@ public class Cloud implements GameObject{
         random = new Random();
         cloud = new Texture("cloud.png");
         batch = new SpriteBatch();
-        cloudHeight = this.cloud.getHeight();
-        cloudWidth = this.cloud.getWidth();
         xPositions = new float[10];
         yPositions = new float[10];
         cloudsPresent = true;
+        samplingrate = 44100;
         //kan göra en point med två kordinater.. men vafan
         xPos();
         yPos();
@@ -36,10 +38,10 @@ public class Cloud implements GameObject{
 
     //called every time the clouds are drawn, records audio
     public void removeClouds(){
-        if(cloudsPresent) {
-            CloudThread cloudThread = new CloudThread();
-            cloudThread.start();
-        }
+        AudioRecorder recorder = Gdx.audio.newAudioRecorder(samplingrate, true);
+        short[] pCM = new short[samplingrate*5]; // 1024 samples
+        recorder.read(pCM, 0, pCM.length);
+
     }
 
 
