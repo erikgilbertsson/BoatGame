@@ -15,6 +15,7 @@ public class Wind implements GameObject{
 
 
     private float xPos, yPos, radius;
+    private Random random;
     private float screenWidth, screenHeight;
     private Random r;
     private TextureRegion rock;
@@ -22,6 +23,9 @@ public class Wind implements GameObject{
     private SpriteBatch batch;
     private int rockWidth, rockHeight;
     Boat boat;
+    private float[] xPositions;
+    private float[] yPositions;
+
 
     private ShapeRenderer shapeRenderer;
     public Wind(float screenWidth, float screenHeight, Boat boat ) {
@@ -29,20 +33,31 @@ public class Wind implements GameObject{
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.boat=boat;
+        random = new Random();
+        xPositions = new float[50];
+        yPositions = new float[30];
         batch = new SpriteBatch();
 
         //This image it's only an example.....
         rock = new TextureRegion(new Texture("wind5.png"));
         r = new Random();
-        resetPosition();
+        //resetPosition();
         rockHeight = this.rock.getTexture().getHeight();
         rockWidth = this.rock.getTexture().getWidth();
 
 
         this.shapeRenderer = new ShapeRenderer();
     }
+    private void moveWind(){
+        for(int i=0; i<50; i++){
+            //float dice = random.nextFloat();
 
-    private void resetPosition() {
+                xPositions[i]+=2.0;
+
+            }
+    }
+
+   /* private void resetPosition() {
         xPos = r.nextFloat() * screenHeight;
         yPos = screenWidth;
         radius = MIN_RADIUS + r.nextFloat() * (MAX_RADIUS-MIN_RADIUS);
@@ -54,16 +69,18 @@ public class Wind implements GameObject{
         } else {
             yPos -= 10;
         }
-    }
+    }*/
 
-    public void wind(){
-        if (yPos==boat.xPos){
+    public void windEffect(){
+        if (xPositions[0]<300){
 
             for (int i=0; i<10;i++){
-                boat.xPos -= 1;
+                boat.xSpeed += 1;
             }
-            System.out.println( "it's work ");
 
+
+        }else {
+            boat.xSpeed -= 1;
         }
     }
 
@@ -73,10 +90,16 @@ public class Wind implements GameObject{
 
 
         batch.begin();
-        batch.draw(rock,yPos,300);
+        for(int i=0; i<50; i++){
+            batch.draw(rock, xPositions[i] ,250);
+        }
+
+        //batch.draw(rock, 250 ,250);
         batch.end();
-        move();
-        wind();
+        moveWind();
+        //move();
+        windEffect();
+
 
 
 
@@ -85,7 +108,9 @@ public class Wind implements GameObject{
     @Override
     public void dispose() {
 
-        shapeRenderer.dispose();
+       // shapeRenderer.dispose();
+        batch.dispose();
+        rock.getTexture().dispose();
 
     }
 }
