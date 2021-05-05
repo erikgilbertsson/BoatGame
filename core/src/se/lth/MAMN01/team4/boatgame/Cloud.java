@@ -28,6 +28,7 @@ public class Cloud implements GameObject{
         xPositions = new float[10];
         yPositions = new float[10];
         cloudsPresent = true;
+        //kan göra en point med två kordinater.. men vafan
         XPos();
         YPos();
 
@@ -35,15 +36,12 @@ public class Cloud implements GameObject{
 
     //called every time the clouds are drawn, records audio
     private void removeClouds(){
-        if(checkClouds()) {
+        if(cloudsPresent) {
             CloudThread cloudThread = new CloudThread();
             cloudThread.start();
         }
     }
 
-    private boolean checkClouds(){
-        return cloudsPresent;
-    }
 
     //makes clouds move:)
     private void moveClouds(){
