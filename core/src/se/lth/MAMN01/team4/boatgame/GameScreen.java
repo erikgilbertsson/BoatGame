@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
     private Boat playerBoat;
     private LinkedList<GameObject> gameObjects;
     private LinkedList<Cliff> cliffs;
+    private LinkedList<Cloud> clouds;
 
     public GameScreen(BoatGame parent) {
         this.parent = parent;
@@ -24,11 +25,12 @@ public class GameScreen implements Screen {
         screenHeight = Gdx.graphics.getHeight();
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
+        clouds = new LinkedList<>();
         cliffs.add(new Cliff(screenWidth, screenHeight));
         playerBoat = new Boat(screenWidth, screenHeight);
         gameObjects.addAll(cliffs);
         gameObjects.add(playerBoat);
-        gameObjects.add(new Cloud(screenWidth, screenHeight));
+        clouds.add(new Cloud(screenWidth, screenHeight));
     }
 
     @Override
@@ -46,6 +48,10 @@ public class GameScreen implements Screen {
 
         for (GameObject obj : gameObjects) {
             obj.draw();
+        }
+
+        for(Cloud cloud: clouds){
+            cloud.draw();
         }
     }
 
