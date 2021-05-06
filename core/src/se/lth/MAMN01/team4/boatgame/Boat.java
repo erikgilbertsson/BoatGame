@@ -24,11 +24,13 @@ public class Boat implements GameObject {
     public float xPos, xSpeed;
     private float screenWidth, screenHeight;
     private int boatWidth, boatHeight;
+    private Wind wind;
 
 
-    public Boat(float screenWidth, float screenHeight) {
+    public Boat(float screenWidth, float screenHeight, Wind wind) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        this.wind = wind;
         batch = new SpriteBatch();
         textureRegion = new TextureRegion(new Texture("first_boat.png"));
         boatHeight = textureRegion.getTexture().getHeight();
@@ -46,6 +48,7 @@ public class Boat implements GameObject {
 
     private void move() {
         xSpeed = Util.lowPass(Gdx.input.getAccelerometerX(), xSpeed);
+        xSpeed += wind.getXForce();
 
         if (xPos + xSpeed < 0 && xSpeed > 0) {
             xSpeed = 0;
