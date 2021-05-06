@@ -21,7 +21,7 @@ public class Boat implements GameObject {
 
     private TextureRegion textureRegion;
     private SpriteBatch batch;
-    public float xPos, xSpeed;
+    public float xPos, xInput;
     private float screenWidth, screenHeight;
     private int boatWidth, boatHeight;
     private Wind wind;
@@ -36,7 +36,7 @@ public class Boat implements GameObject {
         boatHeight = textureRegion.getTexture().getHeight();
         boatWidth = textureRegion.getTexture().getWidth();
         xPos =  screenWidth/2 - boatWidth/2;
-        xSpeed = 0;
+        xInput = 0;
         hitBox = new Rectangle(xPos+40, 250, boatWidth, boatHeight-70);
         collisionTime = 0;
     }
@@ -47,8 +47,8 @@ public class Boat implements GameObject {
 
 
     private void move() {
-        xSpeed = Util.lowPass(Gdx.input.getAccelerometerX(), xSpeed);
-        xSpeed += wind.getXForce();
+        xInput = Util.lowPass(Gdx.input.getAccelerometerX(), xInput);
+        float xSpeed = xInput - wind.getXForce();
 
         if (xPos + xSpeed < 0 && xSpeed > 0) {
             xSpeed = 0;
@@ -77,9 +77,9 @@ public class Boat implements GameObject {
             Gdx.input.vibrate(100);
             collisionTime = TimeUtils.millis();
             if((xPos+boatWidth/2) < (r.getX() + r.getWidth()/2)) {
-                xSpeed = 10;
+                xInput = 10;
             } else {
-                xSpeed = -10;
+                xInput = -10;
             }
         }
     }
@@ -89,7 +89,7 @@ public class Boat implements GameObject {
         batch.begin();
         batch.draw(textureRegion, xPos, 250,
                 boatHeight/2, boatWidth/2, boatWidth, boatHeight,
-                0.8f, 2.5f, xSpeed*2, true);
+                0.8f, 2.5f, xInput*2, true);
         batch.end();
         hitBox.setPosition(xPos, 250);
     }

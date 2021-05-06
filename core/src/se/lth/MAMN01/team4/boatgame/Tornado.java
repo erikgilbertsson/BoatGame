@@ -75,12 +75,12 @@ public class Tornado implements GameObject{
         if (xPositions[0]<300){
 
             for (int i=0; i<10;i++){
-                boat.xSpeed += 1;
+                boat.xInput += 1;
             }
 
 
         }else {
-            boat.xSpeed -= 1;
+            boat.xInput -= 1;
         }
     }
 
