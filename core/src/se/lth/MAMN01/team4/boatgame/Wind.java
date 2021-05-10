@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Wind {
 
-    private static final float MAX_FORCE = 1;
+    private static float MAX_FORCE = 0;
     private static final float MAX_FORCE_PRIME = (float) 0.005;
 
     private long windChangeTime;
@@ -23,11 +23,15 @@ public class Wind {
         timer = 5000;
     }
 
+    public void setMaxForce(float force) {
+        MAX_FORCE = force;
+    }
+
     private void setXForcePrime() {
         xForcePrime = -MAX_FORCE_PRIME + r.nextFloat() * MAX_FORCE_PRIME * 2;
     }
 
-    private void changeXForce() {
+    private void updateXForce() {
         xForce += xForcePrime;
         if (xForce > MAX_FORCE) {
             xForce = MAX_FORCE;
@@ -41,8 +45,7 @@ public class Wind {
             setXForcePrime();
             windChangeTime = TimeUtils.millis();
         }
-        changeXForce();
-        System.out.println("xForce" + xForce);
+        updateXForce();
         return xForce;
     }
 }

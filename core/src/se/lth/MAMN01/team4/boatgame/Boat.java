@@ -1,9 +1,11 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -26,6 +28,7 @@ public class Boat implements GameObject {
     private int boatWidth, boatHeight;
     private Wind wind;
 
+    //private ShapeRenderer shapeRenderer;
 
     public Boat(float screenWidth, float screenHeight, Wind wind) {
         this.screenWidth = screenWidth;
@@ -33,18 +36,15 @@ public class Boat implements GameObject {
         this.wind = wind;
         batch = new SpriteBatch();
         textureRegion = new TextureRegion(new Texture("first_boat.png"));
-        boatHeight = textureRegion.getTexture().getHeight();
-        boatWidth = textureRegion.getTexture().getWidth();
+        boatHeight = 220;
+        boatWidth = 140;
         xPos =  screenWidth/2 - boatWidth/2;
         xInput = 0;
-        hitBox = new Rectangle(xPos+40, 250, boatWidth, boatHeight-70);
+        hitBox = new Rectangle(xPos+20, 250, boatWidth-40, boatHeight-20);
         collisionTime = 0;
+
+        //this.shapeRenderer = new ShapeRenderer();
     }
-
-    public void increaseDifficulty(){
-            SENSITIVITY++;
-        }
-
 
     private void move() {
         xInput = Util.lowPass(Gdx.input.getAccelerometerX(), xInput);
@@ -86,12 +86,21 @@ public class Boat implements GameObject {
 
     public void draw() {
         move();
+        /*
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(xPos+20, 250, boatWidth-40, boatHeight-20);
+
+        shapeRenderer.end();
+         */
+
         batch.begin();
         batch.draw(textureRegion, xPos, 250,
                 boatHeight/2, boatWidth/2, boatWidth, boatHeight,
-                0.8f, 2.5f, xInput*2, true);
+                1, 1, xInput*2, true);
         batch.end();
-        hitBox.setPosition(xPos, 250);
+
+        hitBox.setPosition(xPos+20, 250);
     }
 
     public void dispose() {

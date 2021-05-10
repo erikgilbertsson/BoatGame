@@ -11,14 +11,14 @@ import java.util.Random;
 
 public class Cliff implements GameObject {
 
-    private static final float MAX_SIZE = 500;
+    private static final float MAX_SIZE = 350;
     private static final float MIN_SIZE = 200;
-    private static final float SPEED = 10;
 
     private float xPos, yPos, size;
     private float screenWidth, screenHeight;
     private Random r;
     private Rectangle hitBox;
+    private float hitBoxCorrection;
     private Texture rock;
     private SpriteBatch batch;
 
@@ -36,35 +36,33 @@ public class Cliff implements GameObject {
     }
 
     private void resetPosition() {
-        xPos = r.nextFloat() * screenWidth;
-        yPos = screenHeight;
         size = MIN_SIZE + r.nextFloat() * (MAX_SIZE-MIN_SIZE);
-        float hitBoxCorrection = 100;
-        hitBox.set(xPos + hitBoxCorrection, yPos + hitBoxCorrection, size, size);
+        xPos = r.nextFloat() * (screenWidth - size);
+        yPos = screenHeight;
+        hitBoxCorrection = size/3;
+        hitBox.set(xPos, yPos, size-hitBoxCorrection, size-hitBoxCorrection);
     }
 
     private void move() {
         if(yPos < -200) {
             resetPosition();
         } else {
-            yPos -= SPEED;
+            yPos -= GameDirector.Y_SPEED;
         }
     }
 
     public void draw() {
-
-
-
-        /* shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        /*
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.circle(xPos, yPos, radius);
-        hitBox.setCenter(xPos, yPos); // ska ändras till setPosition sen för Texture
-        shapeRenderer.end(); */
+        shapeRenderer.rect(xPos+hitBoxCorrection/2, yPos+hitBoxCorrection/2, size-hitBoxCorrection, size-hitBoxCorrection);
+        shapeRenderer.end();
+         */
 
         batch.begin();
         batch.draw(rock, xPos, yPos, size, size);
         batch.end();
-        hitBox.setPosition(xPos, yPos);
+        hitBox.setPosition(xPos+hitBoxCorrection/2, yPos+hitBoxCorrection/2);
         move();
     }
 
