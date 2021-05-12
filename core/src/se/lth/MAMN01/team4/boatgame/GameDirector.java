@@ -12,10 +12,11 @@ import java.util.LinkedList;
 public class GameDirector {
     public static float Y_SPEED = 10;
 
-
     private long difficultyTimer = 10000;
     private Difficulty difficulty = Difficulty.D0;
     private long lastDifficultyTime = 0;
+
+    private boolean paused;
 
     private float screenWidth, screenHeight;
     private LinkedList<GameObject> gameObjects;
@@ -25,7 +26,7 @@ public class GameDirector {
 
     private SpriteBatch batch;
     private BitmapFont font;
-    public float point;
+    public float score;
 
 
     public GameDirector(float screenWidth, float screenHeight) {
@@ -36,28 +37,33 @@ public class GameDirector {
         wind = new Wind();
         playerBoat = new Boat(screenWidth, screenHeight, wind);
         gameObjects.add(playerBoat);
-        point = 0;
+        score = 0;
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.TEAL);
         font.getData().setScale(5);
+        paused = false;
     }
 
     public void render() {
-        point += Y_SPEED/100;
-        int points = Math.round(point);
-
-        batch.begin();
-
-        font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
+        if(paused) {
+            gameObjects.remove(playerBoat);
+            cliffs.removeAll(cliffs);
+        } else {
+            score += Y_SPEED/100;
+        }
 
         if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
             increaseDifficulty();
         }
 
+        batch.begin();
+
+        font.draw(batch, "Score: " + Math.round(score), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
+
         for (Cliff cliff : cliffs) {
            if(playerBoat.detectCollision(cliff.getHitBox())){
-               point -= 50;
+               score -= 50;
            };
         }
 
@@ -65,6 +71,19 @@ public class GameDirector {
             obj.draw();
         }
         batch.end();
+    }
+
+    public boolean isGameOver() {
+        if (playerBoat.getLives() <= 0) {
+            pauseGame();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void pauseGame() {
+        paused = true;
     }
 
     public void increaseDifficulty() {
