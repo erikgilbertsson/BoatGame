@@ -1,10 +1,14 @@
 package se.lth.MAMN01.team4.boatgame;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.LinkedList;
 import java.util.Random;
 
-public class Wind {
+public class Wind implements GameObject {
 
     private static float MAX_FORCE = 0;
     private static final float MAX_FORCE_PRIME = (float) 0.005;
@@ -16,11 +20,31 @@ public class Wind {
     private float xForce;
     private Random r;
 
-    public Wind() {
+    private float screenWidth, screenHeight;
+    private ShapeRenderer shapeRenderer;
+    private float[] xPositions;
+    private float[] yPositions;
+
+    public Wind(float screenWidth, float screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         r = new Random();
         xForce = 0;
         windChangeTime = 0;
         timer = 5000;
+        shapeRenderer = new ShapeRenderer();
+        xPositions = new float[50];
+        yPositions = new float[50];
+        setWindStreakPos();
+    }
+
+    private void setWindStreakPos() {
+        for(int i =0; i<xPositions.length; i++){
+            xPositions[i] =  screenWidth*r.nextFloat();
+        }
+        for(int i =0; i<xPositions.length; i++){
+            yPositions[i] =  screenHeight*r.nextFloat();
+        }
     }
 
     public void setMaxForce(float force) {
@@ -47,5 +71,39 @@ public class Wind {
         }
         updateXForce();
         return xForce;
+    }
+
+    @Override
+    public void draw() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.WHITE);
+        drawLines();
+        shapeRenderer.end();
+    }
+
+    public void drawLines() {
+        for(int i = 0; i<50; i++){
+            float xPos = xPositions[i];
+            float yPos = yPositions[i];
+            shapeRenderer.line(xPos, yPos, xPos+xForce*100, yPos);
+        }
+        moveLines();
+    }
+
+    public void moveLines() {
+        for(int i = 0; i<xPositions.length; i++){
+            float xPos = xPositions[i];
+            if(xPos < 0) {
+                xPositions[i] = screenWidth;
+            } else if(xPos > screenWidth) {
+                xPositions[i] = 0;
+            }
+            xPositions[i] += xForce*20;
+        }
+    }
+
+    @Override
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

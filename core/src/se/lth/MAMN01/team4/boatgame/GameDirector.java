@@ -34,9 +34,10 @@ public class GameDirector {
         this.screenHeight = screenHeight;
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
-        wind = new Wind();
+        wind = new Wind(screenWidth, screenHeight);
         playerBoat = new Boat(screenWidth, screenHeight, wind);
         gameObjects.add(playerBoat);
+        gameObjects.add(wind);
         score = 0;
         batch = new SpriteBatch();
         font = new BitmapFont();
