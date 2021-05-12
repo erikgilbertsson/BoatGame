@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
     private int screenHeight;
 
 
+
     public GameScreen(BoatGame parent) {
         this.parent = parent;
         screenWidth = Gdx.graphics.getWidth();

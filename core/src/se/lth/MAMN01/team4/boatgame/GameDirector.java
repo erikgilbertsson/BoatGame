@@ -22,8 +22,6 @@ public class GameDirector {
     private Boat playerBoat;
     private Wind wind;
     private LinkedList<Cliff> cliffs;
-    private LinkedList<Life> lifeBoats;
-    private int lifes = 3;
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -34,15 +32,6 @@ public class GameDirector {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         gameObjects = new LinkedList<>();
-        lifeBoats = new LinkedList<>();
-
-
-        for (int i = 0;i<lifes; i++){
-            Life temp = new Life(screenWidth,screenHeight);
-            //lifeBoats.add(temp);
-            gameObjects.add(temp);
-        }
-
         cliffs = new LinkedList<>();
         wind = new Wind();
         playerBoat = new Boat(screenWidth, screenHeight, wind);
@@ -60,7 +49,7 @@ public class GameDirector {
 
         batch.begin();
 
-        font.draw(batch, "Din score: "+ points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
+        font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
 
         if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
             increaseDifficulty();
