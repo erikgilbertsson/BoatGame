@@ -48,6 +48,7 @@ public class GameDirector {
         int points = Math.round(point);
 
         batch.begin();
+
         font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
 
         if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
@@ -55,7 +56,9 @@ public class GameDirector {
         }
 
         for (Cliff cliff : cliffs) {
-            playerBoat.detectCollision(cliff.getHitBox());
+           if(playerBoat.detectCollision(cliff.getHitBox())){
+               point -= 50;
+           };
         }
 
         for (GameObject obj : gameObjects) {

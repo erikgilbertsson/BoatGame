@@ -72,7 +72,7 @@ public class Boat implements GameObject {
         xPos -= xSpeed * SENSITIVITY;
     }
 
-    public void detectCollision(Rectangle r) {
+    public Boolean detectCollision(Rectangle r) {
         if(TimeUtils.timeSinceMillis(collisionTime) > COLLISION_COOLDOWN && hitBox.overlaps(r)) {
             Gdx.input.vibrate(100);
             collisionTime = TimeUtils.millis();
@@ -81,7 +81,9 @@ public class Boat implements GameObject {
             } else {
                 xInput = -10;
             }
+            return true;
         }
+        return false;
     }
 
     public void draw() {
