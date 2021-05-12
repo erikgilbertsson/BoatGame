@@ -1,11 +1,17 @@
 package se.lth.MAMN01.team4.boatgame;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.LinkedList;
 
 public class GameDirector {
     public static float Y_SPEED = 10;
+
 
     private long difficultyTimer = 10000;
     private Difficulty difficulty = Difficulty.D0;
@@ -17,6 +23,11 @@ public class GameDirector {
     private Wind wind;
     private LinkedList<Cliff> cliffs;
 
+    private SpriteBatch batch;
+    private BitmapFont font;
+    public float point;
+
+
     public GameDirector(float screenWidth, float screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -25,9 +36,20 @@ public class GameDirector {
         wind = new Wind();
         playerBoat = new Boat(screenWidth, screenHeight, wind);
         gameObjects.add(playerBoat);
+        point = 0;
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.setColor(Color.TEAL);
+        font.getData().setScale(5);
     }
 
     public void render() {
+        point += Y_SPEED/100;
+        int points = Math.round(point);
+
+        batch.begin();
+        font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
+
         if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
             increaseDifficulty();
         }
@@ -39,6 +61,7 @@ public class GameDirector {
         for (GameObject obj : gameObjects) {
             obj.draw();
         }
+        batch.end();
     }
 
     public void increaseDifficulty() {
