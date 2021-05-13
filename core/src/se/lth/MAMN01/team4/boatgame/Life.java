@@ -18,16 +18,17 @@ public class Life implements GameObject {
 
     private SpriteBatch batch;
 
-    public static float xPos = 0;
+    float xPos;
+    static float xChange= 20;
 
     public Life(float screenWidth, float screenHeight){
-
-        xPos += screenWidth /2;
-        yPos = screenHeight /2;
+        xPos +=  xChange;
+        xChange += screenWidth/6;
+        yPos = screenHeight *6/7;
         batch = new SpriteBatch();
         lifeBoat = new Texture("first_boat.png");
 
-        size = 200;
+        size = 50;
 
     }
 

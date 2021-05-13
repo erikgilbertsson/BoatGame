@@ -22,6 +22,7 @@ public class GameDirector {
     private Boat playerBoat;
     private Wind wind;
     private LinkedList<Cliff> cliffs;
+    private LinkedList<Life> lives;
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -33,11 +34,16 @@ public class GameDirector {
         this.screenHeight = screenHeight;
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
+        lives = new LinkedList<Life>();
+        for(int i=0;i<3;i++){
+            lives.add(new Life(screenWidth, screenHeight));
+        }
         wind = new Wind();
         playerBoat = new Boat(screenWidth, screenHeight, wind);
         gameObjects.add(playerBoat);
         point = 0;
         batch = new SpriteBatch();
+
         font = new BitmapFont();
         font.setColor(Color.TEAL);
         font.getData().setScale(5);
@@ -49,7 +55,7 @@ public class GameDirector {
 
         batch.begin();
 
-        font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
+        font.draw(batch, "Din score: "+points, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7 + 55);
 
         if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
             increaseDifficulty();
@@ -58,11 +64,17 @@ public class GameDirector {
         for (Cliff cliff : cliffs) {
            if(playerBoat.detectCollision(cliff.getHitBox())){
                point -= 50;
+               if(lives.size()>0) {
+                   lives.remove(lives.size() - 1);
+               }
            };
         }
 
         for (GameObject obj : gameObjects) {
             obj.draw();
+        }
+        for (Life life: lives){
+            life.draw();
         }
         batch.end();
     }
