@@ -9,8 +9,8 @@ public enum Difficulty {
     D5 (15, 3, 1, false),
     D6 (16, 4, (float)1.5, false),
     D7 (17, 4, (float)1.5, false),
-    D8 (18, 5, (float)1.5, false),
-    D9 (18, 5, (float)1.5, true);
+    D8 (18, 4, (float)1.5, true),
+    D9 (18, 4, (float)1.5, true);
 
     private final float ySpeed;
     private final int nbrOfCliffs;

@@ -18,7 +18,6 @@ public class Boat implements GameObject {
     private static final float COLLISION_COOLDOWN = 2000;
 
     // ATTRIBUTES
-    private int lives = 1;
     private long collisionTime;
     private Rectangle hitBox;
 
@@ -82,14 +81,9 @@ public class Boat implements GameObject {
             } else {
                 xInput = -10;
             }
-            lives--;
             return true;
         }
         return false;
-    }
-
-    public int getLives() {
-        return lives;
     }
 
     public void draw() {
