@@ -88,6 +88,7 @@ public class GameDirector {
     public boolean isGameOver() {
         if (lives.size() <= 0) {
             pauseGame();
+            Life.reStart();
             return true;
         } else {
             return false;

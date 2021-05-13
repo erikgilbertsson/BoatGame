@@ -46,4 +46,8 @@ public class Life implements GameObject {
         lifeBoat.dispose();
 
     }
+
+    public static void reStart(){
+        xChange = 20;
+    }
 }
