@@ -30,11 +30,11 @@ public class Boat implements GameObject {
 
     //private ShapeRenderer shapeRenderer;
 
-    public Boat(float screenWidth, float screenHeight, Wind wind) {
+    public Boat(float screenWidth, float screenHeight, SpriteBatch batch, Wind wind) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.wind = wind;
-        batch = new SpriteBatch();
+        this.batch = batch;
         textureRegion = new TextureRegion(new Texture("first_boat.png"));
         boatHeight = 220;
         boatWidth = 140;

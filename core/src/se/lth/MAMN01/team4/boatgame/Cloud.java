@@ -20,12 +20,12 @@ public class Cloud implements GameObject{
     private boolean cloudsPresent;
 
 
-    public Cloud(float screenWidth, float screenHeight){
+    public Cloud(float screenWidth, float screenHeight, SpriteBatch batch){
         this.screenHeight=screenHeight;
         this.screenWidth=screenWidth;
         random = new Random();
         cloud = new Texture("cloud.png");
-        batch = new SpriteBatch();
+        this.batch = batch;
         xPositions = new float[10];
         yPositions = new float[10];
         cloudsPresent = true;

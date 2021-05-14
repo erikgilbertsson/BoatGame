@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         newGame = new MenuButton("newgame_up.png", "newgame_down.png");
-        newGame.setPosition(screenWidth/2-300, screenHeight/2+300);
+        newGame.setPosition(screenWidth/2-300, screenHeight/2);
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
