@@ -1,8 +1,6 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -77,15 +75,6 @@ public class GameDirector {
         drawScore(ui_x, ui_y);
     }
 
-    public boolean isGameOver() {
-        if (life.getNbrOfLives() <= 0) {
-            pauseGame();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private void drawScore(float xPos, float yPos) {
         int points = Math.round(score);
         batch.begin();
@@ -98,7 +87,7 @@ public class GameDirector {
         paused = true;
     }
 
-    public void increaseDifficulty() {
+    private void increaseDifficulty() {
         difficulty = difficulty.getNext();
         Y_SPEED = difficulty.getYSpeed();
         wind.setMaxForce(difficulty.getWindStrength());
@@ -107,7 +96,7 @@ public class GameDirector {
         System.out.println("Dif: " + difficulty.name());
     }
 
-    public void spawnGameObjects() {
+    private void spawnGameObjects() {
         if (cliffs.size() < difficulty.getNbrOfCliffs()) {
             Cliff newCliff = new Cliff(screenWidth, screenHeight, batch);
             cliffs.add(newCliff);
@@ -116,6 +105,14 @@ public class GameDirector {
         if(difficulty.isClouds()) {
             gameObjects.add(new Cloud(screenWidth, screenHeight, batch));
         }
+    }
 
+    public boolean isGameOver() {
+        if (life.getNbrOfLives() <= 0) {
+            pauseGame();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
