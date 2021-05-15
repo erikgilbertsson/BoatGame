@@ -9,11 +9,14 @@ import java.util.Random;
 
 public class Cloud implements GameObject{
 
+    private static final int SAMPLING_RATE = 44100;
+
     private Texture cloud;
     private SpriteBatch batch;
     private float screenWidth, screenHeight;
     private Random random;
-    private int samplingrate;
+    CommandRecorder commandRecorder;
+
     private float cloudHeight,cloudWidth;
     private float[] xPositions;
     private float[] yPositions;
@@ -29,21 +32,17 @@ public class Cloud implements GameObject{
         xPositions = new float[10];
         yPositions = new float[10];
         cloudsPresent = true;
-        samplingrate = 44100;
+        commandRecorder = new CommandRecorder(this);
         //kan göra en point med två kordinater.. men vafan
         xPos();
         yPos();
-
+        commandRecorder.start();
     }
 
     //called every time the clouds are drawn, records audio
     public void removeClouds(){
-        AudioRecorder recorder = Gdx.audio.newAudioRecorder(samplingrate, true);
-        short[] pCM = new short[samplingrate*5]; // 1024 samples
-        recorder.read(pCM, 0, pCM.length);
-
+        System.out.println("removing");
     }
-
 
     //makes clouds move:)
     private void moveClouds(){

@@ -103,7 +103,8 @@ public class GameDirector {
             gameObjects.addFirst(newCliff);
         }
         if(difficulty.isClouds()) {
-            gameObjects.add(new Cloud(screenWidth, screenHeight, batch));
+            Cloud newCloud = new Cloud(screenWidth, screenHeight, batch);
+            gameObjects.add(newCloud);
         }
     }
 
