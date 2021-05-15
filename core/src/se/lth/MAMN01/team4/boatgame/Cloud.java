@@ -57,26 +57,27 @@ public class Cloud implements GameObject{
                     yPositions[i] = yPositions[i]-random.nextFloat();
                 }
             }else{
-                xPositions[i] = (float) (xPositions[i] + (i*1.25));
-                yPositions[i] = (float) (yPositions[i] + (i*1.75));
+                if((i+1)%2 == 0){
+                    xPositions[i] = (float) (xPositions[i] + (i*1.25));
+                    yPositions[i] = (float) (yPositions[i] + (i*1.75));
+                }else
+                    xPositions[i] = (float) (xPositions[i] - (i*1.25));
+                    yPositions[i] = (float) (yPositions[i] + (i*1.75));
+
             }
 
         }
     }
-
-    //Xpos
     private void xPos(){
         for(int i =0; i<10; i++){
             xPositions[i] =  screenWidth*random.nextFloat();
         }
     }
-    //Ypos
     private void yPos(){
         for(int i =0; i<10; i++){
             yPositions[i] = screenHeight/(1+random.nextFloat());
         }
     }
-
     @Override
     //draws the clouds
     public void draw() {
