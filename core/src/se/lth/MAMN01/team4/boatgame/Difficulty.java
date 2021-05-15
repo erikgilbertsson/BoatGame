@@ -6,7 +6,7 @@ public enum Difficulty {
     D2 (12, 2, 1, false),
     D3 (13, 2, 1, true),
     D4 (14, 3, 1, false),
-    D5 (15, 3, 1, false),
+    D5 (15, 3, 1, true),
     D6 (16, 4, (float)1.5, false),
     D7 (17, 4, (float)1.5, false),
     D8 (18, 4, (float)1.5, true),

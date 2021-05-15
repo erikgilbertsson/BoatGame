@@ -49,12 +49,12 @@ public class Cloud implements GameObject{
         for(int i=0; i<10; i++){
             if(!removingClouds){
                 float dice = random.nextFloat();
-                if(dice<0.3){
-                    xPositions[i] = xPositions[i]+random.nextFloat();
-                    yPositions[i] = yPositions[i]+random.nextFloat();
+                if(dice<0.7){
+                    xPositions[i] = (float) (xPositions[i]-3.5);
+                    yPositions[i] = (float) (yPositions[i]-3.5);
                 }else{
-                    xPositions[i] = xPositions[i]-random.nextFloat();
-                    yPositions[i] = yPositions[i]-random.nextFloat();
+                    xPositions[i] = (float) (xPositions[i]+2);
+                    yPositions[i] = (float) (yPositions[i]+2);
                 }
             }else{
                 if((i)%2 == 0){
@@ -70,12 +70,12 @@ public class Cloud implements GameObject{
     }
     private void xPos(){
         for(int i =0; i<10; i++){
-            xPositions[i] =  screenWidth*random.nextFloat();
+            xPositions[i] =  screenWidth*random.nextFloat()+500;
         }
     }
     private void yPos(){
         for(int i =0; i<10; i++){
-            yPositions[i] = screenHeight/(1+random.nextFloat());
+            yPositions[i] = screenHeight/(1+random.nextFloat())+500;
         }
     }
     @Override
