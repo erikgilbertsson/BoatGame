@@ -1,11 +1,8 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
-
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Wind implements GameObject {
@@ -25,6 +22,8 @@ public class Wind implements GameObject {
     private float[] xPositions;
     private float[] yPositions;
 
+    private boolean isStartingAnimation;
+
     public Wind(float screenWidth, float screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -38,20 +37,11 @@ public class Wind implements GameObject {
         setWindStreakPos();
     }
 
-    private void setWindStreakPos() {
-        for(int i =0; i<xPositions.length; i++){
-            xPositions[i] =  screenWidth*r.nextFloat();
-        }
-        for(int i =0; i<xPositions.length; i++){
-            yPositions[i] =  screenHeight*r.nextFloat();
-        }
-    }
-
     public void setMaxForce(float force) {
         MAX_FORCE = force;
     }
 
-    private void setXForcePrime() {
+    private void updateXForcePrime() {
         xForcePrime = -MAX_FORCE_PRIME + r.nextFloat() * MAX_FORCE_PRIME * 2;
     }
 
@@ -65,8 +55,8 @@ public class Wind implements GameObject {
     }
 
     public float getXForce() {
-        if (TimeUtils.timeSinceMillis(windChangeTime) > timer) {
-            setXForcePrime();
+        if (TimeUtils.timeSinceMillis(windChangeTime) > timer && !isStartingAnimation) {
+            updateXForcePrime();
             windChangeTime = TimeUtils.millis();
         }
         updateXForce();
@@ -81,22 +71,35 @@ public class Wind implements GameObject {
         shapeRenderer.end();
     }
 
-    public void drawLines() {
+    private void setWindStreakPos() {
+        for(int i =0; i<xPositions.length; i++){
+            xPositions[i] =  screenWidth + screenWidth*r.nextFloat();
+        }
+        for(int i =0; i<xPositions.length; i++){
+            yPositions[i] =  screenHeight*r.nextFloat();
+        }
+        isStartingAnimation = true;
+        xForcePrime = (float)-0.005;
+    }
+
+    private void drawLines() {
         for(int i = 0; i<50; i++){
             float xPos = xPositions[i];
             float yPos = yPositions[i];
-            shapeRenderer.line(xPos, yPos, xPos+100+xForce*20, yPos+xForce*10);
+            float x2 = Math.abs(xForce) > 0 ? 100+xForce*20 : 0;
+            shapeRenderer.line(xPos, yPos, xPos+x2, yPos+xForce*10);
         }
         moveLines();
     }
 
-    public void moveLines() {
+    private void moveLines() {
         for(int i = 0; i<xPositions.length; i++){
             float xPos = xPositions[i];
-            if(xPos < 0) {
+            if(xPos < -120) {
                 xPositions[i] = screenWidth;
-            } else if(xPos > screenWidth) {
-                xPositions[i] = 0;
+                isStartingAnimation = false;
+            } else if(xPos > screenWidth && !isStartingAnimation) {
+                xPositions[i] = -120;
             }
             xPositions[i] += xForce*10;
         }

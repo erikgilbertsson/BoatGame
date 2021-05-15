@@ -19,7 +19,7 @@ public class Cloud implements GameObject{
     private float cloudHeight,cloudWidth;
     private float[] xPositions;
     private float[] yPositions;
-    private boolean cloudsNotPresent;
+    private boolean removingClouds;
     private boolean moving = true;
 
 
@@ -31,7 +31,7 @@ public class Cloud implements GameObject{
         this.batch = batch;
         xPositions = new float[10];
         yPositions = new float[10];
-        cloudsNotPresent = true;
+        removingClouds = false;
         commandRecorder = new CommandRecorder(this);
         //kan göra en point med två kordinater.. men vafan
         xPos();
@@ -42,12 +42,12 @@ public class Cloud implements GameObject{
     //called every time the clouds are drawn, records audio
     public void removeClouds(){
         System.out.println("removing");
-        cloudsNotPresent = false;
+        removingClouds = true;
     }
     //makes clouds move:)
     private void moveClouds(){
         for(int i=0; i<10; i++){
-            if(cloudsNotPresent){
+            if(!removingClouds){
                 float dice = random.nextFloat();
                 if(dice<0.3){
                     xPositions[i] = xPositions[i]+random.nextFloat();
@@ -57,7 +57,7 @@ public class Cloud implements GameObject{
                     yPositions[i] = yPositions[i]-random.nextFloat();
                 }
             }else{
-                if((i+1)%2 == 0){
+                if((i)%2 == 0){
                     xPositions[i] = (float) (xPositions[i] + (i*1.25));
                     yPositions[i] = (float) (yPositions[i] + (i*1.75));
                 }else
