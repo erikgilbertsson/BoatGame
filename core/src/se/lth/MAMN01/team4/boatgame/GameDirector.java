@@ -33,16 +33,16 @@ public class GameDirector {
         this.screenHeight = screenHeight;
         batch = new SpriteBatch();
         font = new BitmapFont();
-        font.setColor(Color.TEAL);
+        font.setColor(Color.CYAN);
         font.getData().setScale(5);
 
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
-        wind = new Wind();
+        wind = new Wind(screenWidth,screenHeight);
         playerBoat = new Boat(screenWidth, screenHeight, batch, wind);
         life = new Life(screenWidth, screenHeight, batch);
         gameObjects.add(playerBoat);
-
+        gameObjects.add(wind);
         score = 0;
         paused = false;
     }

@@ -85,7 +85,7 @@ public class Wind implements GameObject {
         for(int i = 0; i<50; i++){
             float xPos = xPositions[i];
             float yPos = yPositions[i];
-            shapeRenderer.line(xPos, yPos, xPos+xForce*100, yPos);
+            shapeRenderer.line(xPos, yPos, xPos+100+xForce*20, yPos+xForce*10);
         }
         moveLines();
     }

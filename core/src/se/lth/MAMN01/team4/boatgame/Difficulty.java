@@ -2,8 +2,8 @@ package se.lth.MAMN01.team4.boatgame;
 
 public enum Difficulty {
     D0 (10, 0, 0, false),
-    D1 (10, 1, (float)0.5, false),
-    D2 (12, 2, (float)0.5, false),
+    D1 (10, 1, 0, false),
+    D2 (12, 2, 1, false),
     D3 (13, 2, 1, false),
     D4 (14, 3, 1, false),
     D5 (15, 3, 1, false),
