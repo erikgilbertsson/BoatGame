@@ -58,11 +58,11 @@ public class Cloud implements GameObject{
                 }
             }else{
                 if((i)%2 == 0){
-                    xPositions[i] = (float) (xPositions[i] + (i*1.25));
-                    yPositions[i] = (float) (yPositions[i] + (i*1.75));
+                    xPositions[i] = (float) (xPositions[i] + ((i+1)*1.25));
+                    yPositions[i] = (float) (yPositions[i] + ((i+1)*1.75));
                 }else
-                    xPositions[i] = (float) (xPositions[i] - (i*1.25));
-                    yPositions[i] = (float) (yPositions[i] + (i*1.75));
+                    xPositions[i] = (float) (xPositions[i] - ((i+1)*1.25));
+                    yPositions[i] = (float) (yPositions[i] + ((i+1)*1.75));
 
             }
 
