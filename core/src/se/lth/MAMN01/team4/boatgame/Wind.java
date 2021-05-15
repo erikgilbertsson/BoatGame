@@ -98,7 +98,7 @@ public class Wind implements GameObject {
             } else if(xPos > screenWidth) {
                 xPositions[i] = 0;
             }
-            xPositions[i] += xForce*20;
+            xPositions[i] += xForce*10;
         }
     }
 
