@@ -9,13 +9,14 @@ public enum Difficulty {
     D5 (15, 3, 1, false),
     D6 (16, 4, (float)1.5, false),
     D7 (17, 4, (float)1.5, false),
-    D8 (18, 5, (float)1.5, false),
-    D9 (18, 5, (float)1.5, true);
+    D8 (18, 4, (float)1.5, true),
+    D9 (18, 4, 2, false);
 
     private final float ySpeed;
     private final int nbrOfCliffs;
     private final float windStrength;
     private final boolean clouds;
+
     Difficulty(float ySpeed, int nbrOfCliffs, float windStrength, boolean clouds) {
         this.ySpeed = ySpeed;
         this.nbrOfCliffs = nbrOfCliffs;

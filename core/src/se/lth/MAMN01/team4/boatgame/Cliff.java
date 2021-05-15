@@ -24,10 +24,10 @@ public class Cliff implements GameObject {
 
     //private ShapeRenderer shapeRenderer;
 
-    public Cliff(float screenWidth, float screenHeight) {
+    public Cliff(float screenWidth, float screenHeight, SpriteBatch batch) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
-        batch = new SpriteBatch();
+        this.batch = batch;
         rock = new Texture("rock_2.png");
         r = new Random();
         hitBox = new Rectangle();
@@ -68,7 +68,6 @@ public class Cliff implements GameObject {
 
     public void dispose() {
         //shapeRenderer.dispose();
-        batch.dispose();
         rock.dispose();
     }
 

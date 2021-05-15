@@ -1,8 +1,6 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -23,6 +21,7 @@ public class GameDirector {
     private Boat playerBoat;
     private Wind wind;
     private LinkedList<Cliff> cliffs;
+    private Life life;
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -32,62 +31,63 @@ public class GameDirector {
     public GameDirector(float screenWidth, float screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
-        gameObjects = new LinkedList<>();
-        cliffs = new LinkedList<>();
-        wind = new Wind(screenWidth, screenHeight);
-        playerBoat = new Boat(screenWidth, screenHeight, wind);
-        gameObjects.add(playerBoat);
-        gameObjects.add(wind);
-        score = 0;
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.TEAL);
         font.getData().setScale(5);
+
+        gameObjects = new LinkedList<>();
+        cliffs = new LinkedList<>();
+        wind = new Wind();
+        playerBoat = new Boat(screenWidth, screenHeight, batch, wind);
+        life = new Life(screenWidth, screenHeight, batch);
+        gameObjects.add(playerBoat);
+
+        score = 0;
         paused = false;
     }
 
     public void render() {
+        float ui_x;
+        float ui_y;
         if(paused) {
             gameObjects.remove(playerBoat);
-            cliffs.removeAll(cliffs);
+            ui_x = screenWidth/2-150;
+            ui_y = screenHeight*5/8;
         } else {
             score += Y_SPEED/100;
-        }
-
-        if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
-            increaseDifficulty();
-        }
-
-        batch.begin();
-
-        font.draw(batch, "Score: " + Math.round(score), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()*6/7);
-
-        for (Cliff cliff : cliffs) {
-           if(playerBoat.detectCollision(cliff.getHitBox())){
-               score -= 50;
-           };
+            ui_x = screenWidth/2;
+            ui_y = 150;
+            if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
+                increaseDifficulty();
+            }
+            for (Cliff cliff : cliffs) {
+                if(playerBoat.detectCollision(cliff.getHitBox())){
+                    score -= 50;
+                    life.loseLife();
+                };
+            }
         }
 
         for (GameObject obj : gameObjects) {
             obj.draw();
         }
-        batch.end();
+        drawScore(ui_x, ui_y);
     }
 
-    public boolean isGameOver() {
-        if (playerBoat.getLives() <= 0) {
-            pauseGame();
-            return true;
-        } else {
-            return false;
-        }
+    private void drawScore(float xPos, float yPos) {
+        int points = Math.round(score);
+        batch.begin();
+        font.draw(batch, "Score: " + points, xPos, yPos);
+        batch.end();
+        life.draw();
     }
 
     private void pauseGame() {
         paused = true;
     }
 
-    public void increaseDifficulty() {
+    private void increaseDifficulty() {
         difficulty = difficulty.getNext();
         Y_SPEED = difficulty.getYSpeed();
         wind.setMaxForce(difficulty.getWindStrength());
@@ -96,15 +96,24 @@ public class GameDirector {
         System.out.println("Dif: " + difficulty.name());
     }
 
-    public void spawnGameObjects() {
+    private void spawnGameObjects() {
         if (cliffs.size() < difficulty.getNbrOfCliffs()) {
-            Cliff newCliff = new Cliff(screenWidth, screenHeight);
+            Cliff newCliff = new Cliff(screenWidth, screenHeight, batch);
             cliffs.add(newCliff);
             gameObjects.addFirst(newCliff);
         }
         if(difficulty.isClouds()) {
-            gameObjects.add(new Cloud(screenWidth, screenHeight));
+            Cloud newCloud = new Cloud(screenWidth, screenHeight, batch);
+            gameObjects.add(newCloud);
         }
+    }
 
+    public boolean isGameOver() {
+        if (life.getNbrOfLives() <= 0) {
+            pauseGame();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

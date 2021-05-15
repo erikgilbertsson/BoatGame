@@ -18,7 +18,6 @@ public class Boat implements GameObject {
     private static final float COLLISION_COOLDOWN = 2000;
 
     // ATTRIBUTES
-    private int lives = 1;
     private long collisionTime;
     private Rectangle hitBox;
 
@@ -31,11 +30,11 @@ public class Boat implements GameObject {
 
     //private ShapeRenderer shapeRenderer;
 
-    public Boat(float screenWidth, float screenHeight, Wind wind) {
+    public Boat(float screenWidth, float screenHeight, SpriteBatch batch, Wind wind) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.wind = wind;
-        batch = new SpriteBatch();
+        this.batch = batch;
         textureRegion = new TextureRegion(new Texture("first_boat.png"));
         boatHeight = 220;
         boatWidth = 140;
@@ -82,14 +81,9 @@ public class Boat implements GameObject {
             } else {
                 xInput = -10;
             }
-            lives--;
             return true;
         }
         return false;
-    }
-
-    public int getLives() {
-        return lives;
     }
 
     public void draw() {
