@@ -29,7 +29,7 @@ public class Cloud implements GameObject{
         cloudHeight=screenHeight*4/10;
         cloudWidth=screenWidth*7/10;
         random = new Random();
-        cloud = new Texture("cloud.png");
+        cloud = new Texture("cloudsprite.png");
         xPositions = new float[10];
         yPositions = new float[10];
         generatePos();
