@@ -25,7 +25,8 @@ public class Boat implements GameObject {
     private SpriteBatch batch;
     public float xPos, xInput;
     private float screenWidth, screenHeight;
-    private int boatWidth, boatHeight;
+    private float boatWidth, boatHeight;
+    private float hitBoxCorrection;
     private Wind wind;
 
     //private ShapeRenderer shapeRenderer;
@@ -36,11 +37,12 @@ public class Boat implements GameObject {
         this.wind = wind;
         this.batch = batch;
         textureRegion = new TextureRegion(new Texture("first_boat.png"));
-        boatHeight = 220;
-        boatWidth = 140;
+        boatHeight = screenWidth*2/10;
+        boatWidth = screenWidth*2/15;
         xPos =  screenWidth/2 - boatWidth/2;
         xInput = 0;
-        hitBox = new Rectangle(xPos+20, 250, boatWidth-40, boatHeight-20);
+        hitBoxCorrection = boatWidth/6;
+        hitBox = new Rectangle(xPos+hitBoxCorrection, 250, boatWidth-hitBoxCorrection, boatHeight-hitBoxCorrection);
         collisionTime = 0;
 
         //this.shapeRenderer = new ShapeRenderer();
@@ -88,13 +90,14 @@ public class Boat implements GameObject {
 
     public void draw() {
         move();
+
         /*
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(xPos+20, 250, boatWidth-40, boatHeight-20);
+        shapeRenderer.rect(xPos+hitBoxCorrection, 250, boatWidth-hitBoxCorrection*2, boatHeight-hitBoxCorrection*2);
 
         shapeRenderer.end();
-         */
+        */
 
         batch.begin();
         batch.draw(textureRegion, xPos, 250,
@@ -102,11 +105,10 @@ public class Boat implements GameObject {
                 1, 1, xInput*2, true);
         batch.end();
 
-        hitBox.setPosition(xPos+20, 250);
+        hitBox.setPosition(xPos + hitBoxCorrection, 250);
     }
 
     public void dispose() {
-        batch.dispose();
         textureRegion.getTexture().dispose();
     }
 }

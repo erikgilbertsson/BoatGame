@@ -103,9 +103,14 @@ public class GameDirector {
             gameObjects.addFirst(newCliff);
         }
         if(difficulty.isClouds()) {
-            Cloud newCloud = new Cloud(screenWidth, screenHeight, batch);
+            Cloud newCloud = new Cloud(screenWidth, screenHeight, batch, this);
             gameObjects.add(newCloud);
         }
+    }
+
+    public void removeCloud(Cloud cloud) {
+        gameObjects.remove(cloud);
+        cloud.dispose();
     }
 
     public boolean isGameOver() {

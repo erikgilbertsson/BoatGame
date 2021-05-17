@@ -16,7 +16,7 @@ public class CommandRecorder extends Thread {
     //records sound
     public void run() {
         while(true) {
-            pCM = new short[samplingRate*1]; // 1024 samples
+            pCM = new short[samplingRate*1/2]; // 1024 samples
             recorder.read(pCM, 0, pCM.length);
             int counter = 0;
             for(int i = 0; i < pCM.length; i++) {
@@ -25,14 +25,11 @@ public class CommandRecorder extends Thread {
                     counter++;
                 }
             }
-            if(counter>1000) {
+            if(counter>500) {
                 cloud.removeClouds();
+                recorder.dispose();
+                break;
             }
         }
-    }
-
-    public void dispose() {
-        recorder.dispose();
-        this.dispose();
     }
 }

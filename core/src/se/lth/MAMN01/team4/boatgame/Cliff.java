@@ -11,11 +11,9 @@ import java.util.Random;
 
 public class Cliff implements GameObject {
 
-    private static final float MAX_SIZE = 350;
-    private static final float MIN_SIZE = 200;
-
     private float xPos, yPos, size;
     private float screenWidth, screenHeight;
+    private float MAX_SIZE, MIN_SIZE;
     private Random r;
     private Rectangle hitBox;
     private float hitBoxCorrection;
@@ -28,6 +26,8 @@ public class Cliff implements GameObject {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.batch = batch;
+        MAX_SIZE = screenWidth*(float)3/10;
+        MIN_SIZE = screenWidth*(float)2/10;
         rock = new Texture("rock_2.png");
         r = new Random();
         hitBox = new Rectangle();
@@ -37,7 +37,7 @@ public class Cliff implements GameObject {
 
     private void resetPosition() {
         size = MIN_SIZE + r.nextFloat() * (MAX_SIZE-MIN_SIZE);
-        xPos = r.nextFloat() * (screenWidth - size);
+        xPos = -size/2 + r.nextFloat() * (screenWidth);
         yPos = screenHeight;
         hitBoxCorrection = size/3;
         hitBox.set(xPos, yPos, size-hitBoxCorrection, size-hitBoxCorrection);
@@ -49,6 +49,10 @@ public class Cliff implements GameObject {
         } else {
             yPos -= GameDirector.Y_SPEED;
         }
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
     }
 
     public void draw() {
@@ -71,7 +75,5 @@ public class Cliff implements GameObject {
         rock.dispose();
     }
 
-    public Rectangle getHitBox() {
-        return hitBox;
-    }
+
 }
