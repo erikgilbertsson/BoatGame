@@ -53,7 +53,7 @@ public class Cloud implements GameObject {
             if (!removingClouds) {
                 float dice = random.nextFloat();
                 if (dice < 0.8) {
-                    xPositions[i] = xPositions[i] - (float) 2.5;
+                    xPositions[i] = xPositions[i] - (float) 2;
                     yPositions[i] = yPositions[i] - (float) 4;
                 }
             } else {

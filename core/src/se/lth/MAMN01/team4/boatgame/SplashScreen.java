@@ -12,12 +12,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class SplashScreen implements Screen {
 
     private BoatGame parent;
-    private static final int SPLASH_TIME = 100;
+    private static final int SPLASH_TIME = 1500;
     private AssetManager assetManager;
     private long startTime;
 
     private SpriteBatch batch;
     private Texture img;
+
 
     public SplashScreen(BoatGame parent) {
         this.parent = parent;
@@ -41,7 +42,7 @@ public class SplashScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+        img = new Texture("steamroll_splash.jpg");
     }
 
     @Override
