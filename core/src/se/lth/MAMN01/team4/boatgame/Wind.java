@@ -9,18 +9,16 @@ public class Wind implements GameObject {
 
     private static float MAX_FORCE = 0;
     private static final float MAX_FORCE_PRIME = (float) 0.005;
-
+    private static final long TIMER = 1000;
     private long windChangeTime;
-    private long timer;
 
-    private float xForcePrime;
-    private float xForce;
+
+    private float xForcePrime, xForce;
     private Random r;
 
     private float screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
-    private float[] xPositions;
-    private float[] yPositions;
+    private float[] xPositions, yPositions;
 
     private boolean isStartingAnimation;
 
@@ -30,7 +28,6 @@ public class Wind implements GameObject {
         r = new Random();
         xForce = 0;
         windChangeTime = 0;
-        timer = 5000;
         shapeRenderer = new ShapeRenderer();
         xPositions = new float[50];
         yPositions = new float[50];
@@ -39,6 +36,10 @@ public class Wind implements GameObject {
 
     public void setMaxForce(float force) {
         MAX_FORCE = force;
+    }
+
+    public float getMaxForce() {
+        return MAX_FORCE;
     }
 
     private void updateXForcePrime() {
@@ -55,7 +56,7 @@ public class Wind implements GameObject {
     }
 
     public float getXForce() {
-        if (TimeUtils.timeSinceMillis(windChangeTime) > timer && !isStartingAnimation) {
+        if (TimeUtils.timeSinceMillis(windChangeTime) > TIMER && !isStartingAnimation) {
             updateXForcePrime();
             windChangeTime = TimeUtils.millis();
         }
@@ -86,7 +87,7 @@ public class Wind implements GameObject {
         for(int i = 0; i<50; i++){
             float xPos = xPositions[i];
             float yPos = yPositions[i];
-            float x2 = Math.abs(xForce) > 0 ? 100+xForce*20 : 0;
+            float x2 = Math.abs(xForce) > 0 ? 80+Math.abs(xForce)*10 : 0;
             shapeRenderer.line(xPos, yPos, xPos+x2, yPos+xForce*10);
         }
         moveLines();

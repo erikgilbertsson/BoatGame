@@ -44,7 +44,7 @@ public class Cliff implements GameObject {
     }
 
     private void move() {
-        if(yPos < -200) {
+        if(yPos < -size) {
             resetPosition();
         } else {
             yPos -= GameDirector.Y_SPEED;

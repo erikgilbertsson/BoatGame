@@ -6,30 +6,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
 
-public class Cloud implements GameObject{
+public class Cloud implements GameObject {
 
     private Texture cloud;
     private SpriteBatch batch;
-    private float screenWidth, screenHeight;
     private Random random;
-    private CommandRecorder commandRecorder;
     private GameDirector gameDirector;
-
-    private float cloudHeight,cloudWidth;
-    private float[] xPositions;
-    private float[] yPositions;
+    private CommandRecorder commandRecorder;
     private boolean removingClouds;
+    private float cloudHeight, cloudWidth, screenWidth, screenHeight;
+    private float[] xPositions, yPositions;
 
-
-    public Cloud(float screenWidth, float screenHeight, SpriteBatch batch, GameDirector gameDirector){
+    public Cloud(float screenWidth, float screenHeight, SpriteBatch batch, GameDirector gameDirector) {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.batch = batch;
         this.gameDirector = gameDirector;
         cloud = new Texture("cloudsprite.png");
-        cloudHeight = cloud.getHeight()*(screenWidth/1000);
-        cloudWidth = cloud.getWidth()*(screenWidth/1000);
-        System.out.println(cloudHeight + "  -  " + cloudWidth);
+        cloudHeight = cloud.getHeight() * (screenWidth / 1000);
+        cloudWidth = cloud.getWidth() * (screenWidth / 1000);
         random = new Random();
         xPositions = new float[10];
         yPositions = new float[10];
@@ -39,44 +34,41 @@ public class Cloud implements GameObject{
         commandRecorder.start();
     }
 
-    private void generatePos(){
-        for(int i =0; i<10; i++){
-            xPositions[i] =  screenWidth*random.nextFloat()+500;
-            yPositions[i] = screenHeight/(1+random.nextFloat())+500;
+    private void generatePos() {
+        for (int i = 0; i < 10; i++) {
+            xPositions[i] = screenWidth * random.nextFloat() + cloudWidth/2;
+            yPositions[i] = screenHeight + random.nextFloat()*1000;
         }
     }
 
     //called from CommandRecorder
-    public void removeClouds(){
+    public void removeClouds() {
         removingClouds = true;
     }
 
     //makes clouds move:)
-    private void moveClouds(){
+    private void moveClouds() {
         int nbrOfCloudsPresent = 0;
-        for(int i=0; i<10; i++){
-            if(!removingClouds){
+        for (int i = 0; i < 10; i++) {
+            if (!removingClouds) {
                 float dice = random.nextFloat();
-                if(dice<0.8){
-                    xPositions[i] =  xPositions[i]-(float)2.5;
-                    yPositions[i] =  yPositions[i]-(float)4;
-                }/*else{
-                    xPositions[i] =  xPositions[i]+1;
-                    yPositions[i] = yPositions[i]+1;
-                }*/
-            }else{
-                if((i)%2 == 0){
-                    if(yPositions[i] <= screenHeight) {
+                if (dice < 0.8) {
+                    xPositions[i] = xPositions[i] - (float) 2.5;
+                    yPositions[i] = yPositions[i] - (float) 4;
+                }
+            } else {
+                if ((i) % 2 == 0) {
+                    if (yPositions[i] <= screenHeight) {
                         nbrOfCloudsPresent++;
                     }
-                    if(nbrOfCloudsPresent == 0) {
+                    if (nbrOfCloudsPresent == 0) {
                         gameDirector.removeCloud(this);
                     }
-                    xPositions[i] = (float) (xPositions[i] + ((i+1)*1.25));
-                    yPositions[i] = (float) (yPositions[i] + ((i+1)*1.75));
-                }else
-                    xPositions[i] = (float) (xPositions[i] - ((i+1)*1.25));
-                    yPositions[i] = (float) (yPositions[i] + ((i+1)*1.75));
+                    xPositions[i] = (float) (xPositions[i] + ((i + 1) * 1.25));
+                    yPositions[i] = (float) (yPositions[i] + ((i + 1) * 1.75));
+                } else
+                    xPositions[i] = (float) (xPositions[i] - ((i + 1) * 1.25));
+                yPositions[i] = (float) (yPositions[i] + ((i + 1) * 1.75));
             }
         }
     }
@@ -85,8 +77,8 @@ public class Cloud implements GameObject{
     //draws the clouds
     public void draw() {
         batch.begin();
-        for(int i=0; i<10; i++){
-            batch.draw(cloud, xPositions[i] ,yPositions[i], cloudWidth, cloudHeight);
+        for (int i = 0; i < 10; i++) {
+            batch.draw(cloud, xPositions[i], yPositions[i], cloudWidth, cloudHeight);
         }
         batch.end();
         moveClouds();

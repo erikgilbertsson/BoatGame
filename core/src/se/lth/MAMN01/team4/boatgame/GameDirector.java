@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class GameDirector {
     public static float Y_SPEED = 10;
 
-    private long difficultyTimer = 10000;
+    private long difficultyTimer = 13000;
     private Difficulty difficulty = Difficulty.D0;
     private long lastDifficultyTime = 0;
 
@@ -89,8 +89,11 @@ public class GameDirector {
 
     private void increaseDifficulty() {
         difficulty = difficulty.getNext();
-        Y_SPEED = difficulty.getYSpeed();
-        wind.setMaxForce(difficulty.getWindStrength());
+        Y_SPEED = difficulty.getYSpeed() == -1 ?
+                Y_SPEED+1 : difficulty.getYSpeed();
+        wind.setMaxForce(
+                difficulty.getWindStrength() == -1 ?
+                        wind.getMaxForce()+(float)0.2 : difficulty.getWindStrength());
         spawnGameObjects();
         lastDifficultyTime = TimeUtils.millis();
         System.out.println("Dif: " + difficulty.name());
