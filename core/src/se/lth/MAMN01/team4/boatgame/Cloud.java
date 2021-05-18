@@ -22,14 +22,15 @@ public class Cloud implements GameObject{
 
 
     public Cloud(float screenWidth, float screenHeight, SpriteBatch batch, GameDirector gameDirector){
-        this.screenHeight=screenHeight;
-        this.screenWidth=screenWidth;
+        this.screenHeight = screenHeight;
+        this.screenWidth = screenWidth;
         this.batch = batch;
         this.gameDirector = gameDirector;
-        cloudHeight=screenHeight*4/10;
-        cloudWidth=screenWidth*7/10;
-        random = new Random();
         cloud = new Texture("cloudsprite.png");
+        cloudHeight = cloud.getHeight()*(screenWidth/1000);
+        cloudWidth = cloud.getWidth()*(screenWidth/1000);
+        System.out.println(cloudHeight + "  -  " + cloudWidth);
+        random = new Random();
         xPositions = new float[10];
         yPositions = new float[10];
         generatePos();
