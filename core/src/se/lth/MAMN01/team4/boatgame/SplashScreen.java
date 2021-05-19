@@ -1,11 +1,10 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -27,7 +26,15 @@ public class SplashScreen implements Screen {
     }
 
     @Override
+    public void show() {
+        batch = new SpriteBatch();
+        img = new Texture("steamroll_splash.jpg");
+    }
+
+    @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth()/2 -img.getWidth()/2, Gdx.graphics.getHeight()/2 -img.getHeight()/2);
@@ -36,13 +43,6 @@ public class SplashScreen implements Screen {
         if(assetManager.update() && TimeUtils.timeSinceMillis(startTime) > SPLASH_TIME){
             parent.changeScreen(parent.MAIN_MENU);
         }
-    }
-
-
-    @Override
-    public void show() {
-        batch = new SpriteBatch();
-        img = new Texture("steamroll_splash.jpg");
     }
 
     @Override
