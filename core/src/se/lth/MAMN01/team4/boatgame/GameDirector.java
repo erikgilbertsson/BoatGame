@@ -22,6 +22,7 @@ public class GameDirector {
     private Wind wind;
     private LinkedList<Cliff> cliffs;
     private Life life;
+    private Sounds sounds;
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -35,7 +36,7 @@ public class GameDirector {
         font = new BitmapFont();
         font.setColor(Color.CYAN);
         font.getData().setScale(5);
-
+        sounds = new Sounds();
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
         wind = new Wind(screenWidth,screenHeight);
@@ -63,8 +64,24 @@ public class GameDirector {
             }
             for (Cliff cliff : cliffs) {
                 if(playerBoat.detectCollision(cliff.getHitBox())){
+                    //score +=500;
+                    if(life.getNbrOfLives() <= 1){
+                        if(score >= 1000){
+                            sounds.playSound("privilegeSound");
+                            sounds.disposeSound("privilegeSound");
+                        }else if(score >= 500){
+                            sounds.playSound("crashSound");
+                            sounds.disposeSound("crashSound");
+                        }else {
+                            sounds.playSound("worstPirateSound");
+                            sounds.disposeSound("worstPirateSound");
+                        }
+                    }else {
+                        sounds.playSound("cliffSound");
+                    }
+
                     life.loseLife();
-                };
+                }
             }
         }
 
