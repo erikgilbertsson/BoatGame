@@ -9,12 +9,13 @@ import java.util.Random;
 public class Cloud implements GameObject {
 
     private Texture cloud;
+    private Texture tip;
     private SpriteBatch batch;
     private Random random;
     private GameDirector gameDirector;
     private CommandRecorder commandRecorder;
     private boolean removingClouds;
-    private float cloudHeight, cloudWidth, screenWidth, screenHeight;
+    private float cloudHeight, cloudWidth, screenWidth, screenHeight, tipHeight, tipWidth;
     private float[] xPositions, yPositions;
 
     public Cloud(float screenWidth, float screenHeight, SpriteBatch batch, GameDirector gameDirector) {
@@ -23,8 +24,11 @@ public class Cloud implements GameObject {
         this.batch = batch;
         this.gameDirector = gameDirector;
         cloud = new Texture("cloudsprite.png");
+        tip = new Texture("tip.png");
         cloudHeight = cloud.getHeight() * (screenWidth / 1000);
         cloudWidth = cloud.getWidth() * (screenWidth / 1000);
+        tipWidth = tip.getWidth() * (screenWidth / 1200);
+        tipHeight = tip.getHeight() * (screenWidth / 1200);
         random = new Random();
         xPositions = new float[10];
         yPositions = new float[10];
@@ -87,6 +91,12 @@ public class Cloud implements GameObject {
             }
     }
 
+    private void displaytip(float x, float y) {
+        if(!removingClouds && GameDirector.SHOW_TIPS) {
+            batch.draw(tip, 10, screenHeight - tipHeight - 20, tipWidth, tipHeight);
+        }
+    }
+
     @Override
     //draws the clouds
     public void draw() {
@@ -94,6 +104,7 @@ public class Cloud implements GameObject {
         for (int i = 0; i < 10; i++) {
             batch.draw(cloud, xPositions[i], yPositions[i], cloudWidth, cloudHeight);
         }
+        displaytip(0,0);
         batch.end();
         moveClouds();
     }

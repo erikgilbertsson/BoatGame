@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 public class GameDirector {
     public static float Y_SPEED = 10;
+    public static boolean SHOW_TIPS = true;
 
     private long difficultyTimer = 13000;
     private Difficulty difficulty = Difficulty.D0;
@@ -105,6 +106,9 @@ public class GameDirector {
 
     private void increaseDifficulty() {
         difficulty = difficulty.getNext();
+        if(difficulty.name().equals("D4")) {
+            SHOW_TIPS = false;
+        }
         Y_SPEED = difficulty.getYSpeed() == -1 ?
                 Y_SPEED+1 : difficulty.getYSpeed();
         wind.setMaxForce(
