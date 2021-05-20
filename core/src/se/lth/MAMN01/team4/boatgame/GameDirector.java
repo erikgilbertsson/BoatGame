@@ -63,7 +63,6 @@ public class GameDirector {
             }
             for (Cliff cliff : cliffs) {
                 if(playerBoat.detectCollision(cliff.getHitBox())){
-                    score -= 50;
                     life.loseLife();
                 };
             }

@@ -8,14 +8,16 @@ public class CommandRecorder extends Thread {
     private Cloud cloud;
     private int samplingRate = 44100;
     private short[] pCM;
+    private boolean running;
 
     public CommandRecorder(Cloud cloud) {
         this.cloud = cloud;
+        running = true;
         recorder = Gdx.audio.newAudioRecorder(samplingRate, true);
     }
     //records sound
     public void run() {
-        while(true) {
+        while(running) {
             pCM = new short[samplingRate*1/2]; // 1024 samples
             recorder.read(pCM, 0, pCM.length);
             int counter = 0;
@@ -27,9 +29,12 @@ public class CommandRecorder extends Thread {
             }
             if(counter>500) {
                 cloud.removeClouds();
-                recorder.dispose();
-                break;
             }
         }
+        recorder.dispose();
+    }
+
+    public void terminate() {
+        running = false;
     }
 }

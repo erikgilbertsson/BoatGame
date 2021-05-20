@@ -48,30 +48,43 @@ public class Cloud implements GameObject {
 
     //makes clouds move:)
     private void moveClouds() {
-        int nbrOfCloudsPresent = 0;
+        int nbrOfCloudsOver = 0;
+        int nbrOfCloudsUnder = 0;
+        float xPrim = 0;
+        float yPrim = 0;
         for (int i = 0; i < 10; i++) {
+            if (yPositions[i] > screenHeight) { // cloud is on screen
+                nbrOfCloudsOver++;
+            } else if (yPositions[i] < -cloudHeight) {
+                nbrOfCloudsUnder++;
+            }
             if (!removingClouds) {
                 float dice = random.nextFloat();
                 if (dice < 0.8) {
-                    xPositions[i] = xPositions[i] - (float) 2;
-                    yPositions[i] = yPositions[i] - (float) 4;
+                    xPrim = -(float) 2;
+                    yPrim = -(float) 4;
+                } else {
+                    xPrim = 0;
+                    yPrim = 0;
                 }
             } else { // mic detected sound, removing clouds
-                if (yPositions[i] <= screenHeight && yPositions[i] >= -cloudHeight) { // cloud is on screen
-                    nbrOfCloudsPresent++;
-                }
+                yPrim = (float) ((i + 1) * 1.75);
                 if ((i) % 2 == 0) {
-                    xPositions[i] = (float) (xPositions[i] + ((i + 1) * 1.25));
+                    xPrim = (float) ((i + 1) * 1.25);
                 } else {
-                    xPositions[i] = (float) (xPositions[i] - ((i + 1) * 1.25));
+                    xPrim = -(float) ((i + 1) * 1.25);
                 }
-                yPositions[i] = (float) (yPositions[i] + ((i + 1) * 1.75));
             }
+            xPositions[i] = xPositions[i] + xPrim;
+            yPositions[i] = yPositions[i] + yPrim;
         }
-        if (removingClouds && nbrOfCloudsPresent == 0) {
-            System.out.println("Removing");
-            gameDirector.removeCloud(this);
-        }
+            if(nbrOfCloudsOver >= 10 && yPrim > 0) {
+                commandRecorder.terminate();
+                gameDirector.removeCloud(this);
+            } else if (nbrOfCloudsUnder >= 10 && yPrim < 0) {
+                commandRecorder.terminate();
+                gameDirector.removeCloud(this);
+            }
     }
 
     @Override
