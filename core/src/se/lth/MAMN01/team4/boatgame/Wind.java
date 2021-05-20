@@ -9,7 +9,7 @@ public class Wind implements GameObject {
 
     private static float MAX_FORCE = 0;
     private static float MAX_FORCE_PRIME = 0;
-    private static final long TIMER = 1000;
+    private static final long TIMER = 10000;
     private long windChangeTime;
 
 

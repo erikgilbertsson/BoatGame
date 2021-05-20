@@ -11,7 +11,7 @@ public enum Difficulty {
     D7 (17, 4, 2, false),
     D8 (18, 4, (float)2.3, true),
     D9 (19, 4, (float)2.3, false),
-    D10 (-1, 5, -1, true); // -1 indicating continual increase decided in director
+    D10 (20, 5, -1, true); // -1 indicating continual increase decided in director
 
     private final float ySpeed;
     private final int nbrOfCliffs;

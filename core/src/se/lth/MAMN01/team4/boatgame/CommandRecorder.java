@@ -13,25 +13,39 @@ public class CommandRecorder extends Thread {
     public CommandRecorder(Cloud cloud) {
         this.cloud = cloud;
         running = true;
-        recorder = Gdx.audio.newAudioRecorder(samplingRate, true);
+        try {
+            recorder = Gdx.audio.newAudioRecorder(samplingRate, true);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+            terminate();
+        }
+
     }
+
     //records sound
     public void run() {
-        while(running) {
-            pCM = new short[samplingRate*1/2]; // 1024 samples
-            recorder.read(pCM, 0, pCM.length);
+        while (running) {
+            pCM = new short[samplingRate * 1 / 2]; // 1024 samples
+            if (recorder != null) {
+                recorder.read(pCM, 0, pCM.length);
+            } else {
+                terminate();
+            }
+
             int counter = 0;
-            for(int i = 0; i < pCM.length; i++) {
+            for (int i = 0; i < pCM.length; i++) {
                 short sample = pCM[i];
-                if(sample > 10000) {
+                if (sample > 10000) {
                     counter++;
                 }
             }
-            if(counter>500) {
+            if (counter > 500) {
                 cloud.removeClouds();
             }
         }
-        recorder.dispose();
+        if (recorder != null) {
+            recorder.dispose();
+        }
     }
 
     public void terminate() {
