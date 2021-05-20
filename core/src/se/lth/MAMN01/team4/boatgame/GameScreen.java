@@ -36,9 +36,9 @@ public class GameScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 gameDirector = new GameDirector(screenWidth, screenHeight);
+                stage.clear();
             }
         });
-        stage.addActor(newGame);
     }
 
     @Override
@@ -47,6 +47,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameDirector.render();
         if (gameDirector.isGameOver()) {
+            stage.addActor(newGame);
             stage.act();
             stage.draw();
         }
@@ -74,5 +75,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
+        gameDirector.dispose();
     }
 }

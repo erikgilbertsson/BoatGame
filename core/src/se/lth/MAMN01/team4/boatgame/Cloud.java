@@ -56,20 +56,21 @@ public class Cloud implements GameObject {
                     xPositions[i] = xPositions[i] - (float) 2;
                     yPositions[i] = yPositions[i] - (float) 4;
                 }
-            } else {
+            } else { // mic detected sound, removing clouds
+                if (yPositions[i] <= screenHeight && yPositions[i] >= -cloudHeight) { // cloud is on screen
+                    nbrOfCloudsPresent++;
+                }
                 if ((i) % 2 == 0) {
-                    if (yPositions[i] <= screenHeight) {
-                        nbrOfCloudsPresent++;
-                    }
-                    if (nbrOfCloudsPresent == 0) {
-                        gameDirector.removeCloud(this);
-                    }
                     xPositions[i] = (float) (xPositions[i] + ((i + 1) * 1.25));
-                    yPositions[i] = (float) (yPositions[i] + ((i + 1) * 1.75));
-                } else
+                } else {
                     xPositions[i] = (float) (xPositions[i] - ((i + 1) * 1.25));
+                }
                 yPositions[i] = (float) (yPositions[i] + ((i + 1) * 1.75));
             }
+        }
+        if (removingClouds && nbrOfCloudsPresent == 0) {
+            System.out.println("Removing");
+            gameDirector.removeCloud(this);
         }
     }
 

@@ -23,18 +23,10 @@ public class BoatGame extends Game {
 	public void render () {
 		super.render();
 	}
-	
-	@Override
-	public void dispose () {
-		splashScreen.dispose();
-		mainMenuScreen.dispose();
-		gameScreen.dispose();
-		instructionScreen.dispose();
-	}
+
 
 	public void changeScreen(int screen) {
 		switch(screen){
-
 			case MAIN_MENU:
 				if(mainMenuScreen == null) mainMenuScreen = new MainMenuScreen(this);
 				setScreen(mainMenuScreen);
@@ -48,5 +40,13 @@ public class BoatGame extends Game {
 				setScreen(instructionScreen);
 				break;
 		}
+	}
+
+	@Override
+	public void dispose () {
+		splashScreen.dispose();
+		mainMenuScreen.dispose();
+		gameScreen.dispose();
+		instructionScreen.dispose();
 	}
 }

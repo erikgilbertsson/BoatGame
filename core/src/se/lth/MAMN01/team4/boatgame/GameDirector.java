@@ -124,4 +124,13 @@ public class GameDirector {
             return false;
         }
     }
+
+    public void dispose() {
+        for (GameObject obj : gameObjects) {
+            obj.dispose();
+        }
+        batch.dispose();
+        font.dispose();
+        life.dispose();
+    }
 }

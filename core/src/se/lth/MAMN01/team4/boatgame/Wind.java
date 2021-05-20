@@ -8,7 +8,7 @@ import java.util.Random;
 public class Wind implements GameObject {
 
     private static float MAX_FORCE = 0;
-    private static final float MAX_FORCE_PRIME = (float) 0.005;
+    private static float MAX_FORCE_PRIME = 0;
     private static final long TIMER = 1000;
     private long windChangeTime;
 
@@ -43,6 +43,7 @@ public class Wind implements GameObject {
     }
 
     private void updateXForcePrime() {
+        MAX_FORCE_PRIME = MAX_FORCE*(float)0.01;
         xForcePrime = -MAX_FORCE_PRIME + r.nextFloat() * MAX_FORCE_PRIME * 2;
     }
 
