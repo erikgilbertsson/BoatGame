@@ -50,6 +50,13 @@ public class MainMenuScreen implements Screen {
         help.setPosition(screenWidth/2-300, screenHeight/2-200);
         settings.setPosition(screenWidth/2-300, screenHeight/2-400);
 
+        help.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(2);
+            }
+        });
+
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
