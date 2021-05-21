@@ -11,8 +11,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class GameScreen implements Screen {
 
     private BoatGame parent;
-
-    private GameDirector gameDirector;
+    public GameDirector gameDirector;
 
     private int screenWidth;
     private int screenHeight;

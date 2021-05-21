@@ -7,11 +7,13 @@ public class BoatGame extends Game {
 	public final static int MAIN_MENU = 0;
 	public final static int GAME = 1;
 	public final static int INSTRUCTION = 2;
+	public final static int RECORDS = 3;
 
 	SplashScreen splashScreen;
 	MainMenuScreen mainMenuScreen;
 	GameScreen gameScreen;
 	InstructionScreen instructionScreen;
+	Records records;
 
 	@Override
 	public void create () {
@@ -38,6 +40,10 @@ public class BoatGame extends Game {
 			case INSTRUCTION:
 				if(instructionScreen == null) instructionScreen = new InstructionScreen(this);
 				setScreen(instructionScreen);
+				break;
+			case RECORDS:
+				if(records == null) records = new Records(this,gameScreen.gameDirector.score+"");
+				setScreen(records);
 				break;
 		}
 	}
