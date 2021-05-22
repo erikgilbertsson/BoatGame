@@ -23,7 +23,6 @@ public class MainMenuScreen implements Screen {
     private float screenWidth, screenHeight, boatHeight, boatWidth;
     private BitmapFont font;
     private SpriteBatch batch;
-    private LinkedList<GameObject> gameObjects;
     private Texture rockTexture, cloudTexture;
     private TextureRegion boatTexture;
 
@@ -87,7 +86,7 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        Assets.titleFont.draw(batch, "Boat Game", screenWidth/2-300, screenHeight*6/9);
+        Assets.titleFont.draw(batch, "Boat Game", 0,screenHeight*6/9, screenWidth, 1, true);
         batch.draw(rockTexture, 500, 200);
         batch.draw(cloudTexture, screenWidth*2/5, screenHeight*6/8);
         batch.draw(cloudTexture, screenWidth*3/5, screenHeight*6/7);

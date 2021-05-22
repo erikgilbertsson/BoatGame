@@ -16,7 +16,7 @@ public class Life implements GameObject {
     private float xChange = 100;
 
     public Life(float screenWidth, float screenHeight, SpriteBatch batch){
-        xPos = screenWidth/2-300;
+        xPos = screenWidth/4-(3*size+2*xChange)/2;
         yPos = 100;
         this.batch = batch;
         lifeBoat = new Texture("first_boat.png");
@@ -37,7 +37,7 @@ public class Life implements GameObject {
     public void draw() {
         batch.begin();
         for(int i = 0; i < nbrOfLives; i++) {
-            batch.draw(lifeBoat, xPos+i*xChange, yPos, size,size);
+            batch.draw(lifeBoat, xPos+i*xChange, yPos, size, size);
         }
         batch.end();
     }

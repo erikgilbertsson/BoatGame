@@ -47,6 +47,7 @@ public class GameDirector {
         gameObjects.add(wind);
         score = 0;
         paused = false;
+        //sounds.playMusic();
     }
 
     public void render() {
@@ -54,7 +55,7 @@ public class GameDirector {
         float ui_y;
         if (paused) {
             gameObjects.remove(playerBoat);
-            ui_x = screenWidth / 2 - 150;
+            ui_x = screenWidth/4;
             ui_y = screenHeight * 5 / 8;
         } else {
             score += Y_SPEED / 100;
