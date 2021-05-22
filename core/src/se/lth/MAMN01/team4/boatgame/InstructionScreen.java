@@ -1,6 +1,7 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,17 +9,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class InstructionScreen implements Screen {
-    private BoatGame game;
+    private BoatGame parent;
     private int screenWidth;
     private int screenHeight;
     private SpriteBatch batch;
-    BitmapFont font;
+    private BitmapFont font;
     private Texture img;
 
-
-
-    public InstructionScreen(BoatGame game){
-        this.game=game;
+    public InstructionScreen(BoatGame parent){
+        this.parent = parent;
         font = new BitmapFont();
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
@@ -41,6 +40,10 @@ public class InstructionScreen implements Screen {
        // font.draw( batch,"Tilt the phone", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .5f);
         //font.draw( batch, "blow the mic", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .25f);
         batch.end();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            parent.changeScreen(BoatGame.MAIN_MENU);
+        }
     }
 
     @Override

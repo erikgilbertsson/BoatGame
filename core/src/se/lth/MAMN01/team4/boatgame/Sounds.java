@@ -45,4 +45,11 @@ public class Sounds {
         }
 
     }
+
+    public void dispose() {
+        crashSound.dispose();
+        cliffSound.dispose();
+        privilegeSound.dispose();
+        worstPirateSound.dispose();
+    }
 }

@@ -1,6 +1,7 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -29,7 +30,6 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(BoatGame parent) {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
@@ -43,41 +43,41 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
         MenuButton newGame = new MenuButton("newgame_up.png", "newgame_down.png");
-        MenuButton settings = new MenuButton("settings_up.png", "settings_down.png");
+        MenuButton highScores = new MenuButton("highscore_up.png", "highscore_down.png");
         MenuButton help = new MenuButton("help_up.png", "help_down.png");
         newGame.setPosition(screenWidth/2-300, screenHeight/2);
-        help.setPosition(screenWidth/2-300, screenHeight/2-200);
-        settings.setPosition(screenWidth/2-300, screenHeight/2-400);
+        highScores.setPosition(screenWidth/2-300, screenHeight/2-200);
+        help.setPosition(screenWidth/2-300, screenHeight/2-400);
 
-
-        settings.addListener(new ChangeListener() {
+        newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(3);
+                parent.changeScreen(BoatGame.GAME);
+            }
+        });
+        highScores.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(BoatGame.HIGH_SCORES);
             }
         });
         help.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(2);
-            }
-        });
-
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(1);
+                parent.changeScreen(BoatGame.INSTRUCTION);
             }
         });
 
 
         stage.addActor(newGame);
+        stage.addActor(highScores);
         stage.addActor(help);
-        stage.addActor(settings);
 
-        font.setColor(Color.WHITE);
-        font.getData().setScale(6);
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            parent.changeScreen(BoatGame.MAIN_MENU);
+        }
     }
 
     @Override
@@ -87,7 +87,7 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.draw(batch, "Boat Game", screenWidth/2-220, screenHeight*6/9);
+        Assets.titleFont.draw(batch, "Boat Game", screenWidth/2-300, screenHeight*6/9);
         batch.draw(rockTexture, 500, 200);
         batch.draw(cloudTexture, screenWidth*2/5, screenHeight*6/8);
         batch.draw(cloudTexture, screenWidth*3/5, screenHeight*6/7);
@@ -99,6 +99,10 @@ public class MainMenuScreen implements Screen {
         // tell our stage to do actions and draw itself
         stage.act();
         stage.draw();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            // close app
+        }
     }
 
     @Override

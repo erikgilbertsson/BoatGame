@@ -92,7 +92,7 @@ public class Cloud implements GameObject {
     }
 
     private void displaytip(float x, float y) {
-        if(!removingClouds && GameDirector.SHOW_TIPS) {
+        if(!removingClouds && GameDirector.SHOW_TIPS && yPositions[5] < screenHeight*2/3) {
             batch.draw(tip, 10, screenHeight - tipHeight - 20, tipWidth, tipHeight);
         }
     }

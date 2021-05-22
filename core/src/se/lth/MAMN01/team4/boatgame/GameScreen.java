@@ -1,6 +1,7 @@
 package se.lth.MAMN01.team4.boatgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,24 +17,26 @@ public class GameScreen implements Screen {
     private int screenWidth;
     private int screenHeight;
     private Stage stage;
-    MenuButton newGame;
+    private MenuButton newGame;
 
     public GameScreen(BoatGame parent) {
         this.parent = parent;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-        gameDirector = new GameDirector(screenWidth, screenHeight);
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
     }
+
 
     @Override
     public void show() {
+        gameDirector = new GameDirector(screenWidth, screenHeight);
+        Gdx.input.setInputProcessor(stage);
         newGame = new MenuButton("newgame_up.png", "newgame_down.png");
         newGame.setPosition(screenWidth/2-300, screenHeight/2);
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                gameDirector.dispose();
                 gameDirector = new GameDirector(screenWidth, screenHeight);
                 stage.clear();
             }
@@ -49,6 +52,11 @@ public class GameScreen implements Screen {
             stage.addActor(newGame);
             stage.act();
             stage.draw();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            gameDirector.dispose();
+            parent.changeScreen(BoatGame.MAIN_MENU);
         }
     }
 

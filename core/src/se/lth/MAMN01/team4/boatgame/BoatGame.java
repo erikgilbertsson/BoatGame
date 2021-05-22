@@ -6,14 +6,15 @@ public class BoatGame extends Game {
 
 	public final static int MAIN_MENU = 0;
 	public final static int GAME = 1;
-	public final static int INSTRUCTION = 2;
-	public final static int RECORDS = 3;
+	public final static int HIGH_SCORES = 2;
+	public final static int INSTRUCTION = 3;
+
 
 	SplashScreen splashScreen;
 	MainMenuScreen mainMenuScreen;
 	GameScreen gameScreen;
 	InstructionScreen instructionScreen;
-	Records records;
+	HighScoreScreen highScoreScreen;
 
 	@Override
 	public void create () {
@@ -37,13 +38,13 @@ public class BoatGame extends Game {
 				if(gameScreen == null) gameScreen = new GameScreen(this);
 				setScreen(gameScreen);
 				break;
+			case HIGH_SCORES:
+				if(highScoreScreen == null) highScoreScreen = new HighScoreScreen(this);
+				setScreen(highScoreScreen);
+				break;
 			case INSTRUCTION:
 				if(instructionScreen == null) instructionScreen = new InstructionScreen(this);
 				setScreen(instructionScreen);
-				break;
-			case RECORDS:
-				if(records == null) records = new Records(this,gameScreen.gameDirector.score+"");
-				setScreen(records);
 				break;
 		}
 	}
@@ -52,7 +53,8 @@ public class BoatGame extends Game {
 	public void dispose () {
 		splashScreen.dispose();
 		mainMenuScreen.dispose();
-		gameScreen.dispose();
-		instructionScreen.dispose();
+		if(gameScreen != null) gameScreen.dispose();
+		if(instructionScreen != null) instructionScreen.dispose();
+		if(highScoreScreen != null) highScoreScreen.dispose();
 	}
 }

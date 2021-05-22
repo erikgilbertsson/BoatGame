@@ -1,7 +1,5 @@
 package se.lth.MAMN01.team4.boatgame;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,7 +40,7 @@ public class GameDirector {
         sounds = new Sounds();
         gameObjects = new LinkedList<>();
         cliffs = new LinkedList<>();
-        wind = new Wind(screenWidth,screenHeight);
+        wind = new Wind(screenWidth, screenHeight);
         playerBoat = new Boat(screenWidth, screenHeight, batch, wind);
         life = new Life(screenWidth, screenHeight, batch);
         gameObjects.add(playerBoat);
@@ -54,36 +52,25 @@ public class GameDirector {
     public void render() {
         float ui_x;
         float ui_y;
-        if(paused) {
+        if (paused) {
             gameObjects.remove(playerBoat);
-            ui_x = screenWidth/2-150;
-            ui_y = screenHeight*5/8;
+            ui_x = screenWidth / 2 - 150;
+            ui_y = screenHeight * 5 / 8;
         } else {
-            score += Y_SPEED/100;
+            score += Y_SPEED / 100;
             ui_x = screenWidth/2;
             ui_y = 150;
             if (TimeUtils.timeSinceMillis(lastDifficultyTime) > difficultyTimer) {
                 increaseDifficulty();
             }
             for (Cliff cliff : cliffs) {
-                if(playerBoat.detectCollision(cliff.getHitBox())){
-                    //score +=500;
-                    if(life.getNbrOfLives() <= 1){
-                        if(score >= 1000){
-                            sounds.playSound("privilegeSound");
-                            sounds.disposeSound("privilegeSound");
-                        }else if(score >= 500){
-                            sounds.playSound("crashSound");
-                            sounds.disposeSound("crashSound");
-                        }else {
-                            sounds.playSound("worstPirateSound");
-                            sounds.disposeSound("worstPirateSound");
-                        }
-                    }else {
-                        sounds.playSound("cliffSound");
-                    }
-
+                if (playerBoat.detectCollision(cliff.getHitBox())) {
                     life.loseLife();
+                    if (life.getNbrOfLives() > 0) {
+                        sounds.playSound("cliffSound");
+                    } else {
+                        gameOver();
+                    }
                 }
             }
         }
@@ -95,27 +82,24 @@ public class GameDirector {
     }
 
     private void drawScore(float xPos, float yPos) {
-        int points = Math.round(score);
+        int points = (int) score;
+        String scoreStr = (yPos > screenHeight/2 ? "Score: " : "") + points;
         batch.begin();
-        font.draw(batch, "Score: " + points, xPos, yPos);
+        Assets.scoreFont.draw(batch, scoreStr, xPos, yPos, screenWidth/2, 1, true);
         batch.end();
         life.draw();
     }
 
-    private void pauseGame() {
-        paused = true;
-    }
-
     private void increaseDifficulty() {
         difficulty = difficulty.getNext();
-        if(difficulty.name().equals("D4")) {
+        if (difficulty.name().equals("D4")) {
             SHOW_TIPS = false;
         }
         Y_SPEED = difficulty.getYSpeed() == -1 ?
-                Y_SPEED+1 : difficulty.getYSpeed();
+                Y_SPEED + 1 : difficulty.getYSpeed();
         wind.setMaxForce(
                 difficulty.getWindStrength() == -1 ?
-                        wind.getMaxForce()+(float)0.2 : difficulty.getWindStrength());
+                        wind.getMaxForce() + (float) 0.2 : difficulty.getWindStrength());
         spawnGameObjects();
         lastDifficultyTime = TimeUtils.millis();
         System.out.println("Dif: " + difficulty.name());
@@ -127,7 +111,7 @@ public class GameDirector {
             cliffs.add(newCliff);
             gameObjects.addFirst(newCliff);
         }
-        if(difficulty.isClouds()) {
+        if (difficulty.isClouds()) {
             Cloud newCloud = new Cloud(screenWidth, screenHeight, batch, this);
             gameObjects.add(newCloud);
         }
@@ -138,13 +122,23 @@ public class GameDirector {
         cloud.dispose();
     }
 
-    public boolean isGameOver() {
-        if (life.getNbrOfLives() <= 0) {
-            pauseGame();
-            return true;
+    private void gameOver() {
+        paused = true;
+        HighScoreScreen.saveHighScore((int)score);
+        if (score >= 1000) {
+            sounds.playSound("privilegeSound");
+            sounds.disposeSound("privilegeSound");
+        } else if (score >= 500) {
+            sounds.playSound("crashSound");
+            sounds.disposeSound("crashSound");
         } else {
-            return false;
+            sounds.playSound("worstPirateSound");
+            sounds.disposeSound("worstPirateSound");
         }
+    }
+
+    public boolean isGameOver() {
+        return paused;
     }
 
     public void dispose() {
@@ -154,5 +148,6 @@ public class GameDirector {
         batch.dispose();
         font.dispose();
         life.dispose();
+        sounds.dispose();
     }
 }
