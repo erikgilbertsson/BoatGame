@@ -28,7 +28,6 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(BoatGame parent) {
         this.parent = parent;
-        stage = new Stage(new ScreenViewport());
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
@@ -42,6 +41,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+        stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         MenuButton newGame = new MenuButton("newgame_up.png", "newgame_down.png");
         MenuButton highScores = new MenuButton("highscore_up.png", "highscore_down.png");
@@ -114,7 +114,7 @@ public class MainMenuScreen implements Screen {
     public void resume() { }
 
     @Override
-    public void hide() { }
+    public void hide() {stage.dispose(); }
 
     @Override
     public void dispose() {
