@@ -23,6 +23,8 @@ public class SplashScreen implements Screen {
         this.parent = parent;
         startTime = TimeUtils.millis();
         assetManager = new AssetManager();
+        Assets assets = new Assets();
+        Sounds sounds = new Sounds();
     }
 
     @Override
@@ -39,8 +41,6 @@ public class SplashScreen implements Screen {
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth()/2 -img.getWidth()/2, Gdx.graphics.getHeight()/2 -img.getHeight()/2);
         batch.end();
-        Assets assets = new Assets();
-        Sounds sounds = new Sounds();
         if(assetManager.update() && TimeUtils.timeSinceMillis(startTime) > SPLASH_TIME){
             parent.changeScreen(parent.MAIN_MENU);
         }

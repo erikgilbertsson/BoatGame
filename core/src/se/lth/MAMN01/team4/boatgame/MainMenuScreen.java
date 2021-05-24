@@ -55,18 +55,21 @@ public class MainMenuScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Sounds.playSound("clickSound");
                 parent.changeScreen(BoatGame.GAME);
             }
         });
         highScores.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Sounds.playSound("clickSound");
                 parent.changeScreen(BoatGame.HIGH_SCORES);
             }
         });
         help.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Sounds.playSound("clickSound");
                 parent.changeScreen(BoatGame.INSTRUCTION);
             }
         });
@@ -75,10 +78,6 @@ public class MainMenuScreen implements Screen {
         stage.addActor(newGame);
         stage.addActor(highScores);
         stage.addActor(help);
-
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            parent.changeScreen(BoatGame.MAIN_MENU);
-        }
     }
 
     @Override
@@ -101,8 +100,8 @@ public class MainMenuScreen implements Screen {
         stage.act();
         stage.draw();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            Gdx.app.exit();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)){
+            //Gdx.app.exit();
         }
     }
 

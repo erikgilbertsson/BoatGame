@@ -66,6 +66,7 @@ public class HighScoreScreen implements Screen {
         batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            Sounds.playSound("clickSound");
             parent.changeScreen(BoatGame.MAIN_MENU);
         }
     }

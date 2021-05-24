@@ -56,6 +56,7 @@ public class InstructionScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (Gdx.input.justTouched()) {
+            Sounds.playSound("clickSound");
             instructionIndex = (instructionIndex >= instructionImages.size()-1 ? 0 : instructionIndex+1);
         }
 
@@ -70,6 +71,7 @@ public class InstructionScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            Sounds.playSound("clickSound");
             parent.changeScreen(BoatGame.MAIN_MENU);
         }
     }

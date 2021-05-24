@@ -8,7 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 public class Sounds {
 
     private static Music musicIntro, musicLoop, gameMusic, windLoop;
-    private static Sound crashSound, cliffSound, privilegeSound, worstPirateSound;
+    private static Sound crashSound, cliffSound, privilegeSound, worstPirateSound, clickSound;
 
     public Sounds() {
         // AssetManager  assetManager = new AssetManager();
@@ -20,22 +20,25 @@ public class Sounds {
         privilegeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/itHasBeenAPrivilege.mp3"));
         worstPirateSound = Gdx.audio.newSound(Gdx.files.internal("sounds/worstPirate.mp3"));
         windLoop = Gdx.audio.newMusic(Gdx.files.internal("sounds/wind_loop.ogg"));
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.wav"));
 
     }
 
     public static void playMenuMusic() {
-        musicIntro.setOnCompletionListener(new Music.OnCompletionListener() {
-            @Override
-            public void onCompletion(Music music) {
-                musicLoop.setLooping(true);
-                musicLoop.play();
-            }
-        });
-        musicIntro.play();
+        if (!musicLoop.isPlaying() && !musicIntro.isPlaying()) {
+            musicIntro.setOnCompletionListener(new Music.OnCompletionListener() {
+                @Override
+                public void onCompletion(Music music) {
+                    musicLoop.setLooping(true);
+                    musicLoop.play();
+                }
+            });
+            musicIntro.play();
+        }
     }
 
     public static void playGameMusic() {
-        if(!gameMusic.isPlaying()) {
+        if (!gameMusic.isPlaying()) {
             gameMusic.setLooping(true);
             gameMusic.play();
         }
@@ -46,7 +49,6 @@ public class Sounds {
         windLoop.stop();
         worstPirateSound.stop();
         privilegeSound.stop();
-        cliffSound.stop();
         crashSound.stop();
     }
 
@@ -56,7 +58,7 @@ public class Sounds {
     }
 
     public static void playWindLoop() {
-        if(!windLoop.isPlaying()) {
+        if (!windLoop.isPlaying()) {
             windLoop.setLooping(true);
             windLoop.play();
         }
@@ -71,6 +73,8 @@ public class Sounds {
             privilegeSound.play();
         } else if (sound.equals("worstPirateSound")) {
             worstPirateSound.play(1.25f);
+        } else if (sound.equals("clickSound")) {
+            clickSound.play(0.2f);
         }
 
     }

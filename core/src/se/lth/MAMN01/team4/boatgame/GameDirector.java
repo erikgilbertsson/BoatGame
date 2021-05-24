@@ -11,7 +11,7 @@ public class GameDirector {
     public static float Y_SPEED = 10;
     public static boolean SHOW_TIPS = true;
 
-    private long difficultyTimer = 12000;
+    private long difficultyTimer = 12500;
     private Difficulty difficulty = Difficulty.D0;
     private long lastDifficultyTime = 0;
 

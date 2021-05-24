@@ -6,10 +6,10 @@ public enum Difficulty {
     D2 (15, 2, 1, false),
     D3 (16, 3, 1, true),
     D4 (16, 3, (float)1.5, false),
-    D5 (17, 4, (float)1.5, false),
+    D5 (17, 3, (float)1.5, false),
     D6 (17, 4, 2, true),
     D7 (18, 4, 2, false),
-    D8 (18, 5, (float)2.3, true),
+    D8 (18, 4, (float)2.3, true),
     D9 (19, 5, (float)2.3, false),
     D10 (20, 5, -1, true); // -1 indicating continual increase decided in director
 
