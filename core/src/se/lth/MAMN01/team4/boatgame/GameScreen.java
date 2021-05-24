@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
         gameDirector = new GameDirector(screenWidth, screenHeight);
         Gdx.input.setInputProcessor(stage);
         newGame = new MenuButton("newgame_up.png", "newgame_down.png");
-        newGame.setPosition(screenWidth/2-300, screenHeight/2);
+        newGame.setPosition(screenWidth/2-300, screenHeight*3/7);
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

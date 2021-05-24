@@ -57,7 +57,7 @@ public class GameDirector {
         if (paused) {
             gameObjects.remove(playerBoat);
             ui_x = screenWidth/4;
-            ui_y = screenHeight * 5 / 8;
+            ui_y = screenHeight * 4 / 7;
         } else {
             score += Y_SPEED / 100;
             ui_x = screenWidth/2;
@@ -91,7 +91,7 @@ public class GameDirector {
         String scoreStr = points + " m";
         batch.begin();
         if(isHighScore) {
-            Assets.titleFont.draw(batch, "New high score!", 0, screenHeight*6/8, screenWidth, 1, true);
+            Assets.titleFont.draw(batch, "New high score!", 0, screenHeight*6/9, screenWidth, 1, true);
         }
         Assets.scoreFont.draw(batch, scoreStr, xPos, yPos, screenWidth/2, 1, true);
         batch.end();
