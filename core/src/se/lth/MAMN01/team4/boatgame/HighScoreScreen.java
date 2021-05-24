@@ -71,13 +71,17 @@ public class HighScoreScreen implements Screen {
     }
 
 
-    public static void saveHighScore(int score) {
+    public static boolean saveHighScore(int score) {
         FileHandle fileHandle = Gdx.files.local("high_scores.txt");
+        boolean isNewHighScore = false;
         String newHighScoreInput = "";
         if (fileHandle.exists()) {
             ArrayList<Integer> highScores = new ArrayList();
             for (String sc : fileHandle.readString().split("\\r?\\n")) {
                 highScores.add(Integer.parseInt(sc));
+            }
+            if(score > highScores.get(0)) {
+                isNewHighScore = true;
             }
             highScores.add(score);
             Util.bubbleSort(highScores);
@@ -85,13 +89,14 @@ public class HighScoreScreen implements Screen {
                 highScores.remove(5);
             }
             for (int sc : highScores) {
-                System.out.println(sc);
                 newHighScoreInput += sc + "\n";
             }
         } else {
             newHighScoreInput += score + "\n";
+            isNewHighScore = true;
         }
         fileHandle.writeString(newHighScoreInput,false);
+        return isNewHighScore;
     }
 
 

@@ -17,7 +17,7 @@ public class Cliff implements GameObject {
     private Random r;
     private Rectangle hitBox;
     private float hitBoxCorrection;
-    private Texture rock;
+    private Texture rock, iceberg, shipwreck, chosenObstacle;
     private SpriteBatch batch;
 
     //private ShapeRenderer shapeRenderer;
@@ -26,9 +26,11 @@ public class Cliff implements GameObject {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.batch = batch;
-        MAX_SIZE = screenWidth*(float)3/10;
-        MIN_SIZE = screenWidth*(float)2/10;
+        MAX_SIZE = screenWidth*(float)1/3;
+        MIN_SIZE = screenWidth*(float)1/4;
         rock = new Texture("rock_2.png");
+        iceberg = new Texture("iceberg.png");
+        shipwreck = new Texture("shipwreck.png");
         r = new Random();
         hitBox = new Rectangle();
         resetPosition();
@@ -41,6 +43,14 @@ public class Cliff implements GameObject {
         yPos = screenHeight;
         hitBoxCorrection = size/3;
         hitBox.set(xPos, yPos, size-hitBoxCorrection, size-hitBoxCorrection);
+        float rand = r.nextFloat();
+        if(rand > 0.95) {
+            chosenObstacle = shipwreck;
+        } else if(rand > 0.7) {
+            chosenObstacle = iceberg;
+        } else {
+            chosenObstacle = rock;
+        }
     }
 
     private void move() {
@@ -62,9 +72,8 @@ public class Cliff implements GameObject {
         shapeRenderer.rect(xPos+hitBoxCorrection/2, yPos+hitBoxCorrection/2, size-hitBoxCorrection, size-hitBoxCorrection);
         shapeRenderer.end();
          */
-
         batch.begin();
-        batch.draw(rock, xPos, yPos, size, size);
+        batch.draw(chosenObstacle, xPos, yPos, size, size);
         batch.end();
         hitBox.setPosition(xPos+hitBoxCorrection/2, yPos+hitBoxCorrection/2);
         move();

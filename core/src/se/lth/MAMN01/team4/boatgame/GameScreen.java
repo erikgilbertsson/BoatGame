@@ -29,6 +29,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        Sounds.stopMenuMusic();
         gameDirector = new GameDirector(screenWidth, screenHeight);
         Gdx.input.setInputProcessor(stage);
         newGame = new MenuButton("newgame_up.png", "newgame_down.png");

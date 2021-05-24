@@ -41,6 +41,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+        Sounds.stopGameMusic();
+        Sounds.playMenuMusic();
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         MenuButton newGame = new MenuButton("newgame_up.png", "newgame_down.png");
@@ -100,7 +102,7 @@ public class MainMenuScreen implements Screen {
         stage.draw();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            // close app
+            Gdx.app.exit();
         }
     }
 

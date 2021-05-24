@@ -40,9 +40,9 @@ public class InstructionScreen implements Screen {
         xPos = screenWidth/2-imageWidth/2;
         yPos = screenHeight*1/6;
 
-        instructionStrings.add("Avoid hitting the cliffs by tilting \n your phone left or right...");
-        instructionStrings.add("Compensate and steer your boat against \n the wind when conditions get hairy...");
-        instructionStrings.add("Blow away the clouds obscuring your view \n by blowing onto the bottom of your screen!");
+        instructionStrings.add("Avoid hitting the cliffs by tilting your\nphone left or right...");
+        instructionStrings.add("Compensate and steer your boat against\nthe wind when the weather gets worse...");
+        instructionStrings.add("Blow away the clouds obscuring your view\nby blowing onto the bottom of your screen!");
     }
 
     @Override

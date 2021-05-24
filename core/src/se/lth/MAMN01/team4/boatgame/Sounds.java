@@ -7,21 +7,23 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
 
-    private Music musicIntro, musicLoop;
-    private Sound crashSound, cliffSound, privilegeSound, worstPirateSound;
+    private static Music musicIntro, musicLoop, gameMusic, windLoop;
+    private static Sound crashSound, cliffSound, privilegeSound, worstPirateSound;
 
     public Sounds() {
         // AssetManager  assetManager = new AssetManager();
         musicIntro = Gdx.audio.newMusic(Gdx.files.internal("sounds/boatgame_intro.wav"));
         musicLoop = Gdx.audio.newMusic(Gdx.files.internal("sounds/boatgame_loop.wav"));
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/Drum_Perc_Mix.wav"));
         crashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/BoatCrash.mp3"));
-        cliffSound = Gdx.audio.newSound(Gdx.files.internal("sounds/roblox_death_sound_effect.mp3"));
+        cliffSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit.wav"));
         privilegeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/itHasBeenAPrivilege.mp3"));
         worstPirateSound = Gdx.audio.newSound(Gdx.files.internal("sounds/worstPirate.mp3"));
+        windLoop = Gdx.audio.newMusic(Gdx.files.internal("sounds/wind_loop.ogg"));
 
     }
 
-    public void playMusic() {
+    public static void playMenuMusic() {
         musicIntro.setOnCompletionListener(new Music.OnCompletionListener() {
             @Override
             public void onCompletion(Music music) {
@@ -32,7 +34,35 @@ public class Sounds {
         musicIntro.play();
     }
 
-    public void playSound(String sound) {
+    public static void playGameMusic() {
+        if(!gameMusic.isPlaying()) {
+            gameMusic.setLooping(true);
+            gameMusic.play();
+        }
+    }
+
+    public static void stopGameMusic() {
+        gameMusic.stop();
+        windLoop.stop();
+        worstPirateSound.stop();
+        privilegeSound.stop();
+        cliffSound.stop();
+        crashSound.stop();
+    }
+
+    public static void stopMenuMusic() {
+        musicIntro.stop();
+        musicLoop.stop();
+    }
+
+    public static void playWindLoop() {
+        if(!windLoop.isPlaying()) {
+            windLoop.setLooping(true);
+            windLoop.play();
+        }
+    }
+
+    public static void playSound(String sound) {
         if (sound.equals("crashSound")) {
             crashSound.play(0.25f);
         } else if (sound.equals("cliffSound")) {
@@ -45,7 +75,7 @@ public class Sounds {
 
     }
 
-    public void disposeSound(String sound) {
+    public static void disposeSound(String sound) {
         if (sound.equals("crashSound")) {
             crashSound.dispose();
         } else if (sound.equals("cliffSound")) {
@@ -58,7 +88,7 @@ public class Sounds {
 
     }
 
-    public void dispose() {
+    public static void dispose() {
         crashSound.dispose();
         cliffSound.dispose();
         privilegeSound.dispose();

@@ -39,7 +39,7 @@ public class CommandRecorder extends Thread {
                     counter++;
                 }
             }
-            if (counter > 500) {
+            if (counter > 1200) {
                 cloud.removeClouds();
             }
         }

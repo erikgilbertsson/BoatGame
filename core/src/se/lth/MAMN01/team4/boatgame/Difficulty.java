@@ -2,15 +2,15 @@ package se.lth.MAMN01.team4.boatgame;
 
 public enum Difficulty {
     D0 (10, 0, 0, false),
-    D1 (10, 1, 0, false),
-    D2 (12, 2, 1, false),
-    D3 (13, 2, 1, true),
-    D4 (14, 3, (float)1.5, false),
-    D5 (15, 3, (float)1.5, false),
-    D6 (16, 4, 2, true),
-    D7 (17, 4, 2, false),
-    D8 (18, 4, (float)2.3, true),
-    D9 (19, 4, (float)2.3, false),
+    D1 (15, 1, 0, false),
+    D2 (15, 2, 1, false),
+    D3 (16, 3, 1, true),
+    D4 (16, 3, (float)1.5, false),
+    D5 (17, 4, (float)1.5, false),
+    D6 (17, 4, 2, true),
+    D7 (18, 4, 2, false),
+    D8 (18, 5, (float)2.3, true),
+    D9 (19, 5, (float)2.3, false),
     D10 (20, 5, -1, true); // -1 indicating continual increase decided in director
 
     private final float ySpeed;
