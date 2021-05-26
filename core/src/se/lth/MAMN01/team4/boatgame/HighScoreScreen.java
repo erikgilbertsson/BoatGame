@@ -30,13 +30,13 @@ public class HighScoreScreen implements Screen {
         boatTexture = new TextureRegion(new Texture("first_boat.png"));
         boatHeight = screenWidth*2/10;
         boatWidth = screenWidth*2/15;
-
+        batch = new SpriteBatch();
         fileHandle = Gdx.files.local("high_scores.txt");
     }
 
     @Override
     public void show() {
-        batch = new SpriteBatch();
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     @Override

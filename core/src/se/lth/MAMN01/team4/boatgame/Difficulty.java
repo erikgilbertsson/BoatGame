@@ -2,8 +2,8 @@ package se.lth.MAMN01.team4.boatgame;
 // ySpeed deprecated
 public enum Difficulty {
     D0 (0, 0, 0, false),
-    D1 (0, 1, 0, true),
-    D2 (0, 2, 1, true),
+    D1 (0, 1, 0, false),
+    D2 (0, 2, 1, false),
     D3 (0, 3, 1, true),
     D4 (0, 3, (float)1.5, false),
     D5 (0, 3, (float)1.5, false),

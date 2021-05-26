@@ -48,6 +48,7 @@ public class InstructionScreen implements Screen {
     @Override
     public void show() {
         instructionIndex = 0;
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
     }
 
     @Override

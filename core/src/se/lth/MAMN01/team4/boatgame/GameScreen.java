@@ -42,6 +42,8 @@ public class GameScreen implements Screen {
                 stage.clear();
             }
         });
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
+
     }
 
     @Override

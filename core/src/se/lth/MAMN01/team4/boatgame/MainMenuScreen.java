@@ -78,6 +78,8 @@ public class MainMenuScreen implements Screen {
         stage.addActor(newGame);
         stage.addActor(highScores);
         stage.addActor(help);
+
+        Gdx.input.setCatchKey(Input.Keys.BACK, false);
     }
 
     @Override
@@ -99,10 +101,6 @@ public class MainMenuScreen implements Screen {
         // tell our stage to do actions and draw itself
         stage.act();
         stage.draw();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)){
-            //Gdx.app.exit();
-        }
     }
 
     @Override

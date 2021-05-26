@@ -26,8 +26,5 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(new BoatGame(), config);
 	}
 
-	@Override
-	public void onBackPressed() {
-		//let libGDX handle this
-	}
+
 }
