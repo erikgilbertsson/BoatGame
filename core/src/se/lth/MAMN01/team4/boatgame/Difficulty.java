@@ -1,17 +1,17 @@
 package se.lth.MAMN01.team4.boatgame;
-
+// ySpeed deprecated
 public enum Difficulty {
-    D0 (10, 0, 0, false),
-    D1 (15, 1, 0, false),
-    D2 (15, 2, 1, false),
-    D3 (16, 3, 1, true),
-    D4 (16, 3, (float)1.5, false),
-    D5 (17, 3, (float)1.5, false),
-    D6 (17, 4, 2, true),
-    D7 (18, 4, 2, false),
-    D8 (18, 4, (float)2.3, true),
-    D9 (19, 5, (float)2.3, false),
-    D10 (20, 5, -1, true); // -1 indicating continual increase decided in director
+    D0 (0, 0, 0, false),
+    D1 (0, 1, 0, true),
+    D2 (0, 2, 1, true),
+    D3 (0, 3, 1, true),
+    D4 (0, 3, (float)1.5, false),
+    D5 (0, 3, (float)1.5, false),
+    D6 (0, 4, 2, true),
+    D7 (0, 4, 2, false),
+    D8 (0, 4, (float)2.3, true),
+    D9 (0, 5, (float)2.3, false),
+    D10 (0, 5, -1, true); // -1 indicating continual increase decided in director
 
     private final float ySpeed;
     private final int nbrOfCliffs;

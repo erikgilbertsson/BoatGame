@@ -26,8 +26,8 @@ public class Cliff implements GameObject {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.batch = batch;
-        MAX_SIZE = screenWidth*(float)1/3;
-        MIN_SIZE = screenWidth*(float)1/4;
+        MAX_SIZE = screenWidth*1/3;
+        MIN_SIZE = screenWidth*1/4;
         rock = new Texture("rock_2.png");
         iceberg = new Texture("iceberg.png");
         shipwreck = new Texture("shipwreck.png");
@@ -40,7 +40,7 @@ public class Cliff implements GameObject {
     private void resetPosition() {
         size = MIN_SIZE + r.nextFloat() * (MAX_SIZE-MIN_SIZE);
         xPos = -size/2 + r.nextFloat() * (screenWidth);
-        yPos = screenHeight;
+        yPos = screenHeight + r.nextFloat() * 350;
         hitBoxCorrection = size/3;
         hitBox.set(xPos, yPos, size-hitBoxCorrection, size-hitBoxCorrection);
         float rand = r.nextFloat();

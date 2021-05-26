@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
         gameDirector = new GameDirector(screenWidth, screenHeight);
         Gdx.input.setInputProcessor(stage);
         newGame = new MenuButton("newgame_up.png", "newgame_down.png");
-        newGame.setPosition(screenWidth/2-300, screenHeight*3/7);
+        newGame.setPosition(screenWidth/(float)2-300, screenHeight*(float)3/7);
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -56,6 +56,7 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            Sounds.playSound("clickSound");
             gameDirector.dispose();
             parent.changeScreen(BoatGame.MAIN_MENU);
         }
