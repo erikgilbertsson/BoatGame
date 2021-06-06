@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-06T10:38:13.083Z" agent="5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" etag="Mz53KvQhr7jfoYTChPLT" version="14.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-06T10:44:59.455Z" agent="5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" etag="80MIEWKwHr-QVjyxUKwy" version="14.5.3" type="github">
   <diagram name="Page-1" id="97916047-d0de-89f5-080d-49f4d83e522f">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
       <root>
@@ -100,7 +100,7 @@
         <mxCell id="2mqTTCtxisO7fK9cdNAc-40" value="Wind-object" style="rounded=1;fillColor=#10739E;strokeColor=none;shadow=1;gradientColor=none;fontStyle=1;fontColor=#FFFFFF;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="910" y="631.5" width="150" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2mqTTCtxisO7fK9cdNAc-39" value="Cliff-object" style="rounded=1;fillColor=#10739E;strokeColor=none;shadow=1;gradientColor=none;fontStyle=1;fontColor=#FFFFFF;fontSize=14;" parent="1" vertex="1">
+        <mxCell id="2mqTTCtxisO7fK9cdNAc-39" value="Obstacle-object" style="rounded=1;fillColor=#10739E;strokeColor=none;shadow=1;gradientColor=none;fontStyle=1;fontColor=#FFFFFF;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="910" y="790" width="150" height="60" as="geometry" />
         </mxCell>
         <mxCell id="jqsr4mylxPur5wkSGg6a-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;strokeWidth=4;" parent="1" source="jqsr4mylxPur5wkSGg6a-56" target="2mqTTCtxisO7fK9cdNAc-44" edge="1">
